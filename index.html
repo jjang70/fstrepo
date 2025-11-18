@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GitHub 정적 페이지</title>
+    <title>Pages</title>
     <link rel="stylesheet" href="styles.css">
     <script src="script.js"></script>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>안녕하세요! 👋</h1>
-            <p>GitHub Pages 정적 웹사이트에 오신 것을 환영합니다.</p>
+            <h1>Python 데이터 분석 가이드</h1>
         </header>
         
         <div class="layout">
@@ -74,14 +73,19 @@
                     <div class="setup-section">
                         <h3>1. Python 다운로드</h3>
                         <p>Python이 설치되어 있지 않다면 먼저 Python을 다운로드하세요.</p>
-                        <a href="https://www.python.org/downloads/" target="_blank" class="download-link">
-                            Python 공식 사이트에서 다운로드
+                        <a href="https://www.python.org/ftp/python/3.13.9/python-3.13.9-amd64.exe" download="python-3.13.9-amd64.exe" class="download-link">
+                            📥 Python 3.13.9 (64-bit) 다운로드
                         </a>
                     </div>
                     
                     <div class="setup-section">
                         <h3>2. Jupyter 설정</h3>
                         <p>다음 Python 스크립트를 실행하여 Jupyter 환경을 자동으로 설정할 수 있습니다.</p>
+                        <div style="margin-bottom: 15px;">
+                            <button onclick="downloadJupyterScript()" class="download-link" style="border: none; cursor: pointer; font-family: inherit;">
+                                📥 setup_and_run_jupyter.py 다운로드
+                            </button>
+                        </div>
                         <div class="code-block">
                             <pre><code>import os
 import subprocess
