@@ -10,13 +10,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>Python 데이터 분석 가이드</h1>
+            <h1>"컴퓨팅 사고력은 모든 사람을 위한 기본 기술이다" - 앤드류 응</h1>
         </header>
         
         <div class="layout">
             <aside class="sidebar">
                 <nav class="sidebar-nav">
-                    <div class="menu-item active" data-menu="jupyter">Jupyter 설정</div>
+                    <div class="menu-item" data-menu="jupyter">Jupyter 설정</div>
                     <div class="menu-item has-submenu" data-menu="library">
                         <span>오픈소스 라이브러리</span>
                         <span class="submenu-toggle">▼</span>
@@ -24,6 +24,8 @@
                     <div class="submenu" id="library-submenu" style="display: none;">
                         <div class="submenu-item" data-submenu="pandas">pandas</div>
                         <div class="submenu-item" data-submenu="matplotlib">matplotlib</div>
+                        <div class="submenu-item" data-submenu="requests">requests</div>
+                        <div class="submenu-item" data-submenu="beautifulsoup4">beautifulsoup4</div>
                     </div>
                     <div class="menu-item has-submenu" data-menu="ml">
                         <span>머신러닝</span>
@@ -34,8 +36,19 @@
                         <div class="submenu-item" data-submenu="unsupervised">비지도학습</div>
                         <div class="submenu-item" data-submenu="reinforcement">강화학습</div>
                     </div>
-                    <div class="menu-item disabled">메뉴4</div>
-                    <div class="menu-item disabled">메뉴5</div>
+                    <div class="menu-item" data-menu="data-sites">데이터 수집 사이트</div>
+                    <div class="menu-item has-submenu" data-menu="datatypes">
+                        <span>자료형</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="datatypes-submenu" style="display: none;">
+                        <div class="submenu-item" data-submenu="basic">기본 자료형</div>
+                        <div class="submenu-item" data-submenu="sequence">시퀀스 자료형</div>
+                        <div class="submenu-item" data-submenu="mapping">매핑 자료형</div>
+                        <div class="submenu-item" data-submenu="set">집합 자료형</div>
+                        <div class="submenu-item" data-submenu="array">배열 자료형</div>
+                        <div class="submenu-item" data-submenu="series">시리즈 자료형</div>
+                    </div>
                     <div class="menu-item disabled">메뉴6</div>
                     <div class="menu-item disabled">메뉴7</div>
                     <div class="menu-item disabled">메뉴8</div>
@@ -80,89 +93,12 @@
                     
                     <div class="setup-section">
                         <h3>2. Jupyter 설정</h3>
-                        <p>다음 Python 스크립트를 실행하여 Jupyter 환경을 자동으로 설정할 수 있습니다.</p>
-                        <div style="margin-bottom: 15px;">
+                        <p>Python 스크립트를 다운로드하여 Jupyter 환경을 자동으로 설정할 수 있습니다.</p>
+                        <div style="margin-top: 20px;">
                             <button onclick="downloadJupyterScript()" class="download-link" style="border: none; cursor: pointer; font-family: inherit;">
                                 📥 setup_and_run_jupyter.py 다운로드
                             </button>
                         </div>
-                        <div class="code-block">
-                            <pre><code>import os
-import subprocess
-import sys
-import json
-
-# 1. requirements.txt 생성
-packages = ["pandas", "matplotlib", "numpy", "requests", "beautifulsoup4", "jupyter", "posco-lp"]
-with open("requirements.txt", "w") as f:
-    for pkg in packages:
-        f.write(pkg + "\n")
-
-# 2. lp.ipynb 생성
-lp_notebook = {
-  "cells": [
-    {
-      "cell_type": "code",
-      "metadata": {},
-      "source": [
-        "from poscolp import LP\n",
-        "lp_id = ''\n",
-        "lp_pw = ''\n",
-        "lp = LP(lp_id, lp_pw)"
-      ],
-      "outputs": [],
-      "execution_count": None
-    }
-  ],
-  "metadata": {
-    "kernelspec": {
-      "display_name": "Python 3",
-      "language": "python",
-      "name": "python3"
-    },
-    "language_info": {
-      "codemirror_mode": {"name": "ipython","version": 3},
-      "file_extension": ".py",
-      "mimetype": "text/x-python",
-      "name": "python",
-      "nbconvert_exporter": "python",
-      "pygments_lexer": "ipython3",
-      "version": "3.12.0"
-    }
-  },
-  "nbformat": 4,
-  "nbformat_minor": 5
-}
-with open("lp.ipynb", "w", encoding="utf-8") as f:
-    json.dump(lp_notebook, f, ensure_ascii=False, indent=2)
-
-# 3. 가상환경 디렉터리
-venv_dir = "myenv"
-
-# 4. 가상환경 생성
-if not os.path.exists(venv_dir):
-    subprocess.check_call([sys.executable, "-m", "venv", venv_dir])
-
-# 5. 가상환경 내 python 경로 (윈도우용)
-python_venv = os.path.join(venv_dir, "Scripts", "python.exe")
-
-# 6. pip 업그레이드
-subprocess.check_call([python_venv, "-m", "pip", "install", "--upgrade", "pip"])
-
-# 7. requirements.txt에 있는 패키지 설치
-subprocess.check_call([python_venv, "-m", "pip", "install", "-r", "requirements.txt"])
-
-# 8. 주피터 노트북 실행 안내 (자동 실행은 주석 처리)
-#print("주피터 노트북을 자동으로 실행합니다...")
-#subprocess.check_call([python_venv, "-m", "notebook"])
-
-print("가상환경 및 패키지 설치가 완료되었습니다.")
-print("다음 명령어로 가상환경을 활성화하고 주피터 노트북을 수동으로 실행하세요:")
-print(f"{venv_dir}\\Scripts\\activate.bat")
-print("그리고")
-print("jupyter notebook")</code></pre>
-                        </div>
-                        <p class="note">위 스크립트를 <code>setup_and_run_jupyter.py</code> 파일로 저장한 후 실행하세요.</p>
                     </div>
                 </div>
                 
@@ -338,6 +274,156 @@ ax.scatter(x, y, z)</code></pre>
                             </div>
                         </div>
                     </div>
+                    
+                    <div id="requests-content" style="display: none;">
+                        <h2>requests 사용방법</h2>
+                        
+                        <div class="library-section">
+                            <h3>1. 기본 사용법</h3>
+                            <div class="code-block">
+                                <pre><code>import requests
+
+# GET 요청
+response = requests.get('https://api.example.com/data')
+print(response.status_code)
+print(response.json())
+
+# POST 요청
+data = {'key': 'value'}
+response = requests.post('https://api.example.com/data', json=data)</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>2. 헤더 및 파라미터</h3>
+                            <div class="code-block">
+                                <pre><code># 헤더 추가
+headers = {'User-Agent': 'Mozilla/5.0'}
+response = requests.get('https://example.com', headers=headers)
+
+# 쿼리 파라미터
+params = {'page': 1, 'limit': 10}
+response = requests.get('https://api.example.com', params=params)
+
+# 쿠키 사용
+cookies = {'session': 'abc123'}
+response = requests.get('https://example.com', cookies=cookies)</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>3. 파일 다운로드</h3>
+                            <div class="code-block">
+                                <pre><code># 파일 다운로드
+url = 'https://example.com/file.pdf'
+response = requests.get(url)
+
+with open('file.pdf', 'wb') as f:
+    f.write(response.content)
+
+# 스트리밍 다운로드 (대용량 파일)
+response = requests.get(url, stream=True)
+with open('large_file.zip', 'wb') as f:
+    for chunk in response.iter_content(chunk_size=8192):
+        f.write(chunk)</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>4. 에러 처리</h3>
+                            <div class="code-block">
+                                <pre><code>try:
+    response = requests.get('https://example.com', timeout=5)
+    response.raise_for_status()  # HTTP 에러 확인
+except requests.exceptions.RequestException as e:
+    print(f"에러 발생: {e}")
+
+# 상태 코드 확인
+if response.status_code == 200:
+    print("성공")
+elif response.status_code == 404:
+    print("페이지를 찾을 수 없습니다")</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="beautifulsoup4-content" style="display: none;">
+                        <h2>beautifulsoup4 사용방법</h2>
+                        
+                        <div class="library-section">
+                            <h3>1. 기본 사용법</h3>
+                            <div class="code-block">
+                                <pre><code>from bs4 import BeautifulSoup
+import requests
+
+# HTML 파싱
+html = requests.get('https://example.com').text
+soup = BeautifulSoup(html, 'html.parser')
+
+# 태그 찾기
+title = soup.find('title')
+print(title.text)
+
+# 모든 링크 찾기
+links = soup.find_all('a')
+for link in links:
+    print(link.get('href'))</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>2. 선택자 사용</h3>
+                            <div class="code-block">
+                                <pre><code># CSS 선택자
+divs = soup.select('div.content')
+first_div = soup.select_one('div#main')
+
+# 클래스로 찾기
+items = soup.find_all('div', class_='item')
+items = soup.select('.item')
+
+# ID로 찾기
+main = soup.find('div', id='main')
+main = soup.select_one('#main')</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>3. 데이터 추출</h3>
+                            <div class="code-block">
+                                <pre><code># 텍스트 추출
+text = soup.get_text()
+text = soup.find('p').get_text(strip=True)
+
+# 속성 추출
+img_src = soup.find('img')['src']
+link_href = soup.find('a').get('href')
+
+# 여러 요소 추출
+articles = soup.find_all('article')
+for article in articles:
+    title = article.find('h2').text
+    content = article.find('p').text</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>4. 고급 사용법</h3>
+                            <div class="code-block">
+                                <pre><code># 부모/자식 요소
+parent = soup.find('div').parent
+children = soup.find('div').children
+
+# 형제 요소
+next_sibling = soup.find('p').next_sibling
+prev_sibling = soup.find('p').previous_sibling
+
+# 조건부 검색
+divs = soup.find_all('div', attrs={'class': 'content', 'id': 'main'})
+links = soup.find_all('a', href=True)  # href 속성이 있는 링크만</code></pre>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div id="ml-content" style="display: none;">
@@ -432,6 +518,259 @@ ax.scatter(x, y, z)</code></pre>
                                 <li>Actor-Critic</li>
                                 <li>Proximal Policy Optimization (PPO)</li>
                             </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="data-sites-content" style="display: none;">
+                    <h2>데이터 수집 유용한 사이트</h2>
+                    <p>데이터 분석 및 머신러닝 프로젝트에 활용할 수 있는 공개 데이터셋과 API를 제공하는 사이트들입니다.</p>
+                    
+                    <div class="library-section">
+                        <h3>공개 데이터셋</h3>
+                        <ul style="line-height: 2.5; color: #666;">
+                            <li><strong><a href="https://www.kaggle.com/datasets" target="_blank" style="color: #667eea; text-decoration: none;">Kaggle Datasets</a></strong> - 다양한 머신러닝 데이터셋 제공</li>
+                            <li><strong><a href="https://data.gov/" target="_blank" style="color: #667eea; text-decoration: none;">Data.gov</a></strong> - 미국 정부 공개 데이터</li>
+                            <li><strong><a href="https://www.data.go.kr/" target="_blank" style="color: #667eea; text-decoration: none;">공공데이터포털</a></strong> - 대한민국 공공 데이터</li>
+                            <li><strong><a href="https://archive.ics.uci.edu/" target="_blank" style="color: #667eea; text-decoration: none;">UCI Machine Learning Repository</a></strong> - 머신러닝 연구용 데이터셋</li>
+                            <li><strong><a href="https://www.google.com/datasetsearch" target="_blank" style="color: #667eea; text-decoration: none;">Google Dataset Search</a></strong> - 데이터셋 검색 엔진</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="library-section">
+                        <h3>API 제공 사이트</h3>
+                        <ul style="line-height: 2.5; color: #666;">
+                            <li><strong><a href="https://jsonplaceholder.typicode.com/" target="_blank" style="color: #667eea; text-decoration: none;">JSONPlaceholder</a></strong> - 테스트용 REST API</li>
+                            <li><strong><a href="https://www.alphavantage.co/" target="_blank" style="color: #667eea; text-decoration: none;">Alpha Vantage</a></strong> - 주식 시장 데이터 API</li>
+                            <li><strong><a href="https://openweathermap.org/api" target="_blank" style="color: #667eea; text-decoration: none;">OpenWeatherMap</a></strong> - 날씨 데이터 API</li>
+                            <li><strong><a href="https://newsapi.org/" target="_blank" style="color: #667eea; text-decoration: none;">News API</a></strong> - 뉴스 헤드라인 API</li>
+                            <li><strong><a href="https://www.themoviedb.org/documentation/api" target="_blank" style="color: #667eea; text-decoration: none;">The Movie Database (TMDB)</a></strong> - 영화 데이터 API</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="library-section">
+                        <h3>웹 스크래핑 연습 사이트</h3>
+                        <ul style="line-height: 2.5; color: #666;">
+                            <li><strong><a href="http://quotes.toscrape.com/" target="_blank" style="color: #667eea; text-decoration: none;">Quotes to Scrape</a></strong> - 웹 스크래핑 연습용 사이트</li>
+                            <li><strong><a href="https://books.toscrape.com/" target="_blank" style="color: #667eea; text-decoration: none;">Books to Scrape</a></strong> - 책 정보 스크래핑 연습</li>
+                            <li><strong><a href="http://quotes.toscrape.com/js/" target="_blank" style="color: #667eea; text-decoration: none;">Quotes (JavaScript)</a></strong> - JavaScript 렌더링 연습</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="library-section">
+                        <h3>특수 목적 데이터</h3>
+                        <ul style="line-height: 2.5; color: #666;">
+                            <li><strong><a href="https://www.imdb.com/interfaces/" target="_blank" style="color: #667eea; text-decoration: none;">IMDb Datasets</a></strong> - 영화 및 TV 프로그램 데이터</li>
+                            <li><strong><a href="https://github.com/datasets" target="_blank" style="color: #667eea; text-decoration: none;">GitHub Datasets</a></strong> - GitHub의 공개 데이터셋 모음</li>
+                            <li><strong><a href="https://www.reddit.com/r/datasets" target="_blank" style="color: #667eea; text-decoration: none;">r/datasets</a></strong> - Reddit 데이터셋 커뮤니티</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div id="datatypes-content" style="display: none;">
+                    <div id="datatypes-default">
+                        <h2>자료형</h2>
+                        <p>좌측 메뉴에서 Python의 주요 자료형 카테고리를 선택하여 세부분류와 요약사항을 확인하세요.</p>
+                    </div>
+                    
+                    <div id="basic-content" style="display: none;">
+                        <h2>기본 자료형</h2>
+                        
+                        <div class="library-section">
+                            <h3>세부분류</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>숫자형 (Numeric Types)</strong>
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>int - 정수형</li>
+                                        <li>float - 실수형</li>
+                                        <li>complex - 복소수형</li>
+                                    </ul>
+                                </li>
+                                <li><strong>문자열 (String)</strong> - str</li>
+                                <li><strong>불린 (Boolean)</strong> - bool</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>요약사항</h3>
+                            <p style="line-height: 1.8; color: #666;">
+                                기본 자료형은 Python에서 가장 기본이 되는 데이터 타입입니다. 숫자형은 수학적 연산에 사용되며, 
+                                정수(int), 실수(float), 복소수(complex)로 구분됩니다. 문자열(str)은 텍스트 데이터를 저장하고 
+                                처리하는 데 사용되며, 불변(immutable) 객체입니다. 불린(bool)은 True와 False 두 가지 값만 가지며, 
+                                조건문과 논리 연산에 필수적입니다.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="sequence-content" style="display: none;">
+                        <h2>시퀀스 자료형</h2>
+                        
+                        <div class="library-section">
+                            <h3>세부분류</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>리스트 (List)</strong> - list
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>가변(mutable) 시퀀스</li>
+                                        <li>순서가 있는 요소들의 모음</li>
+                                        <li>다양한 자료형 혼합 가능</li>
+                                    </ul>
+                                </li>
+                                <li><strong>튜플 (Tuple)</strong> - tuple
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>불변(immutable) 시퀀스</li>
+                                        <li>리스트보다 빠른 접근 속도</li>
+                                        <li>딕셔너리 키로 사용 가능</li>
+                                    </ul>
+                                </li>
+                                <li><strong>문자열 (String)</strong> - str
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>불변(immutable) 시퀀스</li>
+                                        <li>문자들의 나열</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>요약사항</h3>
+                            <p style="line-height: 1.8; color: #666;">
+                                시퀀스 자료형은 순서가 있는 요소들의 집합입니다. 리스트는 가변적이어서 요소 추가, 삭제, 수정이 가능하며, 
+                                가장 많이 사용되는 자료구조입니다. 튜플은 불변적이어서 한 번 생성되면 수정할 수 없지만, 리스트보다 메모리 효율적이고 
+                                빠른 접근이 가능합니다. 문자열도 시퀀스의 일종으로, 인덱싱과 슬라이싱이 가능합니다.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="mapping-content" style="display: none;">
+                        <h2>매핑 자료형</h2>
+                        
+                        <div class="library-section">
+                            <h3>세부분류</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>딕셔너리 (Dictionary)</strong> - dict
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>키-값 쌍(key-value pair) 구조</li>
+                                        <li>가변(mutable) 자료형</li>
+                                        <li>키는 불변 자료형만 사용 가능</li>
+                                        <li>순서 보장 (Python 3.7+)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>요약사항</h3>
+                            <p style="line-height: 1.8; color: #666;">
+                                딕셔너리는 키(key)와 값(value)의 쌍으로 데이터를 저장하는 자료구조입니다. 해시 테이블을 기반으로 하여 
+                                평균 O(1) 시간 복잡도로 조회가 가능합니다. 키는 불변 자료형(문자열, 숫자, 튜플 등)만 사용할 수 있으며, 
+                                값은 모든 자료형을 사용할 수 있습니다. Python 3.7부터는 삽입 순서가 보장되어 순서가 있는 매핑 자료형이 되었습니다.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="set-content" style="display: none;">
+                        <h2>집합 자료형</h2>
+                        
+                        <div class="library-section">
+                            <h3>세부분류</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>집합 (Set)</strong> - set
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>가변(mutable) 집합</li>
+                                        <li>중복 요소 불가</li>
+                                        <li>순서 없음</li>
+                                        <li>집합 연산 지원</li>
+                                    </ul>
+                                </li>
+                                <li><strong>불변 집합 (Frozen Set)</strong> - frozenset
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>불변(immutable) 집합</li>
+                                        <li>딕셔너리 키로 사용 가능</li>
+                                        <li>다른 집합의 요소로 사용 가능</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>요약사항</h3>
+                            <p style="line-height: 1.8; color: #666;">
+                                집합 자료형은 수학의 집합 개념을 구현한 자료구조로, 중복된 요소를 허용하지 않습니다. 
+                                순서가 없으며 해시 테이블을 기반으로 하여 빠른 멤버십 테스트가 가능합니다. 
+                                합집합, 교집합, 차집합 등의 집합 연산을 지원합니다. set은 가변적이어서 요소 추가/삭제가 가능하지만, 
+                                frozenset은 불변적이어서 딕셔너리의 키나 다른 집합의 요소로 사용할 수 있습니다.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="array-content" style="display: none;">
+                        <h2>배열 자료형</h2>
+                        
+                        <div class="library-section">
+                            <h3>세부분류</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>NumPy 배열 (ndarray)</strong> - numpy.ndarray
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>다차원 배열 구조</li>
+                                        <li>동일한 데이터 타입만 저장</li>
+                                        <li>벡터화 연산 지원</li>
+                                        <li>메모리 효율적</li>
+                                    </ul>
+                                </li>
+                                <li><strong>배열 특징</strong>
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>shape, dtype 속성</li>
+                                        <li>브로드캐스팅 지원</li>
+                                        <li>인덱싱 및 슬라이싱</li>
+                                        <li>수학 연산 최적화</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>요약사항</h3>
+                            <p style="line-height: 1.8; color: #666;">
+                                NumPy 배열(ndarray)은 과학 계산과 데이터 분석의 핵심 자료구조입니다. 리스트와 달리 동일한 데이터 타입만 저장하며, 
+                                C로 구현되어 매우 빠른 연산 속도를 제공합니다. 다차원 배열을 지원하여 행렬 연산, 이미지 처리, 머신러닝 등에 널리 사용됩니다. 
+                                벡터화 연산을 통해 반복문 없이도 전체 배열에 대한 연산을 수행할 수 있어 성능이 우수합니다.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div id="series-content" style="display: none;">
+                        <h2>시리즈 자료형</h2>
+                        
+                        <div class="library-section">
+                            <h3>세부분류</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>Pandas 시리즈 (Series)</strong> - pandas.Series
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>1차원 레이블이 있는 배열</li>
+                                        <li>인덱스와 값의 쌍</li>
+                                        <li>다양한 데이터 타입 지원</li>
+                                        <li>NaN 값 처리 가능</li>
+                                    </ul>
+                                </li>
+                                <li><strong>시리즈 특징</strong>
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>인덱스 기반 접근</li>
+                                        <li>벡터화 연산 지원</li>
+                                        <li>결측치 처리 메서드</li>
+                                        <li>데이터프레임의 열(column)로 사용</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>요약사항</h3>
+                            <p style="line-height: 1.8; color: #666;">
+                                Pandas Series는 1차원 레이블이 있는 배열로, 딕셔너리와 리스트의 특징을 결합한 자료구조입니다. 
+                                각 값에 인덱스가 연결되어 있어 이름으로 데이터에 접근할 수 있습니다. NumPy 배열을 기반으로 하되, 
+                                레이블 인덱싱과 결측치 처리 기능이 추가되었습니다. 데이터프레임의 기본 구성 요소이며, 
+                                시계열 데이터, 실험 결과 등 순서가 있는 데이터를 다루는 데 적합합니다.
+                            </p>
                         </div>
                     </div>
                 </div>

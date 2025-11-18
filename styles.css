@@ -21,16 +21,18 @@ body {
 header {
     text-align: center;
     color: #333;
-    padding: 20px 20px;
-    background: white;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 30px 20px;
+    background: transparent;
+    border: none;
 }
 
 header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin: 0;
-    font-weight: 600;
+    font-weight: 400;
     color: #667eea;
+    font-style: italic;
+    line-height: 1.4;
 }
 
 .layout {

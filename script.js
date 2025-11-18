@@ -7,12 +7,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const libraryDefault = document.getElementById('library-default');
     const pandasContent = document.getElementById('pandas-content');
     const matplotlibContent = document.getElementById('matplotlib-content');
+    const requestsContent = document.getElementById('requests-content');
+    const beautifulsoup4Content = document.getElementById('beautifulsoup4-content');
     const mlContent = document.getElementById('ml-content');
+    const dataSitesContent = document.getElementById('data-sites-content');
     const mlSubmenu = document.getElementById('ml-submenu');
     const mlDefault = document.getElementById('ml-default');
     const supervisedContent = document.getElementById('supervised-content');
     const unsupervisedContent = document.getElementById('unsupervised-content');
     const reinforcementContent = document.getElementById('reinforcement-content');
+    const datatypesContent = document.getElementById('datatypes-content');
+    const datatypesSubmenu = document.getElementById('datatypes-submenu');
+    const datatypesDefault = document.getElementById('datatypes-default');
+    const basicContent = document.getElementById('basic-content');
+    const sequenceContent = document.getElementById('sequence-content');
+    const mappingContent = document.getElementById('mapping-content');
+    const setContent = document.getElementById('set-content');
+    const arrayContent = document.getElementById('array-content');
+    const seriesContent = document.getElementById('series-content');
     
     // 초기 로드 시 활성화된 메뉴에 맞는 콘텐츠 표시
     const activeMenu = document.querySelector('.menu-item.active');
@@ -22,6 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
             defaultContent.style.display = 'none';
             jupyterContent.style.display = 'block';
             libraryContent.style.display = 'none';
+            mlContent.style.display = 'none';
+            dataSitesContent.style.display = 'none';
+        } else if (menuType === 'data-sites') {
+            defaultContent.style.display = 'none';
+            jupyterContent.style.display = 'none';
+            libraryContent.style.display = 'none';
+            mlContent.style.display = 'none';
+            dataSitesContent.style.display = 'block';
         }
     }
     
@@ -67,19 +87,39 @@ document.addEventListener('DOMContentLoaded', function() {
                         defaultContent.style.display = 'none';
                         jupyterContent.style.display = 'none';
                         mlContent.style.display = 'none';
+                        dataSitesContent.style.display = 'none';
+                        datatypesContent.style.display = 'none';
                         libraryContent.style.display = 'block';
                         libraryDefault.style.display = 'block';
                         pandasContent.style.display = 'none';
                         matplotlibContent.style.display = 'none';
+                        requestsContent.style.display = 'none';
+                        beautifulsoup4Content.style.display = 'none';
                     } else if (menuType === 'ml') {
                         defaultContent.style.display = 'none';
                         jupyterContent.style.display = 'none';
                         libraryContent.style.display = 'none';
+                        dataSitesContent.style.display = 'none';
+                        datatypesContent.style.display = 'none';
                         mlContent.style.display = 'block';
                         mlDefault.style.display = 'block';
                         supervisedContent.style.display = 'none';
                         unsupervisedContent.style.display = 'none';
                         reinforcementContent.style.display = 'none';
+                    } else if (menuType === 'datatypes') {
+                        defaultContent.style.display = 'none';
+                        jupyterContent.style.display = 'none';
+                        libraryContent.style.display = 'none';
+                        mlContent.style.display = 'none';
+                        dataSitesContent.style.display = 'none';
+                        datatypesContent.style.display = 'block';
+                        datatypesDefault.style.display = 'block';
+                        basicContent.style.display = 'none';
+                        sequenceContent.style.display = 'none';
+                        mappingContent.style.display = 'none';
+                        setContent.style.display = 'none';
+                        arrayContent.style.display = 'none';
+                        seriesContent.style.display = 'none';
                     }
                 }
                 return;
@@ -104,13 +144,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 jupyterContent.style.display = 'block';
                 libraryContent.style.display = 'none';
                 mlContent.style.display = 'none';
+                dataSitesContent.style.display = 'none';
+                datatypesContent.style.display = 'none';
                 if (librarySubmenu) librarySubmenu.style.display = 'none';
                 if (mlSubmenu) mlSubmenu.style.display = 'none';
+                if (datatypesSubmenu) datatypesSubmenu.style.display = 'none';
+            } else if (menuType === 'data-sites') {
+                defaultContent.style.display = 'none';
+                jupyterContent.style.display = 'none';
+                libraryContent.style.display = 'none';
+                mlContent.style.display = 'none';
+                dataSitesContent.style.display = 'block';
+                datatypesContent.style.display = 'none';
+                if (librarySubmenu) librarySubmenu.style.display = 'none';
+                if (mlSubmenu) mlSubmenu.style.display = 'none';
+                if (datatypesSubmenu) datatypesSubmenu.style.display = 'none';
             } else {
                 defaultContent.style.display = 'block';
                 jupyterContent.style.display = 'none';
                 libraryContent.style.display = 'none';
                 mlContent.style.display = 'none';
+                dataSitesContent.style.display = 'none';
+                datatypesContent.style.display = 'none';
             }
         });
     });
@@ -132,10 +187,12 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             
             // 라이브러리 서브메뉴 처리
-            if (submenuType === 'pandas' || submenuType === 'matplotlib') {
+            if (submenuType === 'pandas' || submenuType === 'matplotlib' || submenuType === 'requests' || submenuType === 'beautifulsoup4') {
                 libraryDefault.style.display = 'none';
                 pandasContent.style.display = submenuType === 'pandas' ? 'block' : 'none';
                 matplotlibContent.style.display = submenuType === 'matplotlib' ? 'block' : 'none';
+                requestsContent.style.display = submenuType === 'requests' ? 'block' : 'none';
+                beautifulsoup4Content.style.display = submenuType === 'beautifulsoup4' ? 'block' : 'none';
             }
             
             // 머신러닝 서브메뉴 처리
@@ -144,6 +201,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 supervisedContent.style.display = submenuType === 'supervised' ? 'block' : 'none';
                 unsupervisedContent.style.display = submenuType === 'unsupervised' ? 'block' : 'none';
                 reinforcementContent.style.display = submenuType === 'reinforcement' ? 'block' : 'none';
+            }
+            
+            // 자료형 서브메뉴 처리
+            if (submenuType === 'basic' || submenuType === 'sequence' || submenuType === 'mapping' || submenuType === 'set' || submenuType === 'array' || submenuType === 'series') {
+                datatypesDefault.style.display = 'none';
+                basicContent.style.display = submenuType === 'basic' ? 'block' : 'none';
+                sequenceContent.style.display = submenuType === 'sequence' ? 'block' : 'none';
+                mappingContent.style.display = submenuType === 'mapping' ? 'block' : 'none';
+                setContent.style.display = submenuType === 'set' ? 'block' : 'none';
+                arrayContent.style.display = submenuType === 'array' ? 'block' : 'none';
+                seriesContent.style.display = submenuType === 'series' ? 'block' : 'none';
             }
         });
     });
