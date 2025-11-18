@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub 정적 페이지</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,9 +17,24 @@
         <div class="layout">
             <aside class="sidebar">
                 <nav class="sidebar-nav">
-                    <div class="menu-item disabled">메뉴1</div>
-                    <div class="menu-item disabled">메뉴2</div>
-                    <div class="menu-item disabled">메뉴3</div>
+                    <div class="menu-item active" data-menu="jupyter">Jupyter 설정</div>
+                    <div class="menu-item has-submenu" data-menu="library">
+                        <span>오픈소스 라이브러리</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="library-submenu" style="display: none;">
+                        <div class="submenu-item" data-submenu="pandas">pandas</div>
+                        <div class="submenu-item" data-submenu="matplotlib">matplotlib</div>
+                    </div>
+                    <div class="menu-item has-submenu" data-menu="ml">
+                        <span>머신러닝</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="ml-submenu" style="display: none;">
+                        <div class="submenu-item" data-submenu="supervised">지도학습</div>
+                        <div class="submenu-item" data-submenu="unsupervised">비지도학습</div>
+                        <div class="submenu-item" data-submenu="reinforcement">강화학습</div>
+                    </div>
                     <div class="menu-item disabled">메뉴4</div>
                     <div class="menu-item disabled">메뉴5</div>
                     <div class="menu-item disabled">메뉴6</div>
@@ -30,22 +46,389 @@
             </aside>
             
             <main>
-            <section class="content">
-                <h2>프로젝트 소개</h2>
-                <p>이것은 GitHub Pages를 사용하여 호스팅되는 기본 정적 웹페이지입니다.</p>
+            <section class="content" id="main-content">
+                <div id="default-content" style="display: none;">
+                    <h2>프로젝트 소개</h2>
+                    <p>Python 데이터 분석 환경 설정 및 오픈소스 라이브러리 사용 가이드를 제공하는 웹사이트입니다.</p>
+                    
+                    <div class="features">
+                        <div class="feature-card">
+                            <h3>🔧 Jupyter 환경 설정</h3>
+                            <p>Jupyter Notebook 환경을 쉽게 설정하고 시작할 수 있는 가이드를 제공합니다.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>📚 라이브러리 가이드</h3>
+                            <p>pandas, matplotlib 등 주요 데이터 분석 라이브러리의 사용법을 카테고리별로 정리했습니다.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h3>💻 실용적인 예제</h3>
+                            <p>실제 프로젝트에서 바로 활용할 수 있는 코드 예제를 제공합니다.</p>
+                        </div>
+                    </div>
+                </div>
                 
-                <div class="features">
-                    <div class="feature-card">
-                        <h3>🚀 빠른 로딩</h3>
-                        <p>정적 페이지로 빠른 속도를 제공합니다.</p>
+                <div id="jupyter-content">
+                    <h2>Jupyter 환경 설정</h2>
+                    <p>Jupyter 환경을 설정하기 위한 방법입니다.</p>
+                    
+                    <div class="setup-section">
+                        <h3>1. Python 다운로드</h3>
+                        <p>Python이 설치되어 있지 않다면 먼저 Python을 다운로드하세요.</p>
+                        <a href="https://www.python.org/downloads/" target="_blank" class="download-link">
+                            Python 공식 사이트에서 다운로드
+                        </a>
                     </div>
-                    <div class="feature-card">
-                        <h3>📱 반응형 디자인</h3>
-                        <p>모든 기기에서 최적화된 경험을 제공합니다.</p>
+                    
+                    <div class="setup-section">
+                        <h3>2. Jupyter 설정</h3>
+                        <p>다음 Python 스크립트를 실행하여 Jupyter 환경을 자동으로 설정할 수 있습니다.</p>
+                        <div class="code-block">
+                            <pre><code>import os
+import subprocess
+import sys
+import json
+
+# 1. requirements.txt 생성
+packages = ["pandas", "matplotlib", "numpy", "requests", "beautifulsoup4", "jupyter", "posco-lp"]
+with open("requirements.txt", "w") as f:
+    for pkg in packages:
+        f.write(pkg + "\n")
+
+# 2. lp.ipynb 생성
+lp_notebook = {
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "from poscolp import LP\n",
+        "lp_id = ''\n",
+        "lp_pw = ''\n",
+        "lp = LP(lp_id, lp_pw)"
+      ],
+      "outputs": [],
+      "execution_count": None
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "display_name": "Python 3",
+      "language": "python",
+      "name": "python3"
+    },
+    "language_info": {
+      "codemirror_mode": {"name": "ipython","version": 3},
+      "file_extension": ".py",
+      "mimetype": "text/x-python",
+      "name": "python",
+      "nbconvert_exporter": "python",
+      "pygments_lexer": "ipython3",
+      "version": "3.12.0"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
+with open("lp.ipynb", "w", encoding="utf-8") as f:
+    json.dump(lp_notebook, f, ensure_ascii=False, indent=2)
+
+# 3. 가상환경 디렉터리
+venv_dir = "myenv"
+
+# 4. 가상환경 생성
+if not os.path.exists(venv_dir):
+    subprocess.check_call([sys.executable, "-m", "venv", venv_dir])
+
+# 5. 가상환경 내 python 경로 (윈도우용)
+python_venv = os.path.join(venv_dir, "Scripts", "python.exe")
+
+# 6. pip 업그레이드
+subprocess.check_call([python_venv, "-m", "pip", "install", "--upgrade", "pip"])
+
+# 7. requirements.txt에 있는 패키지 설치
+subprocess.check_call([python_venv, "-m", "pip", "install", "-r", "requirements.txt"])
+
+# 8. 주피터 노트북 실행 안내 (자동 실행은 주석 처리)
+#print("주피터 노트북을 자동으로 실행합니다...")
+#subprocess.check_call([python_venv, "-m", "notebook"])
+
+print("가상환경 및 패키지 설치가 완료되었습니다.")
+print("다음 명령어로 가상환경을 활성화하고 주피터 노트북을 수동으로 실행하세요:")
+print(f"{venv_dir}\\Scripts\\activate.bat")
+print("그리고")
+print("jupyter notebook")</code></pre>
+                        </div>
+                        <p class="note">위 스크립트를 <code>setup_and_run_jupyter.py</code> 파일로 저장한 후 실행하세요.</p>
                     </div>
-                    <div class="feature-card">
-                        <h3>🌐 무료 호스팅</h3>
-                        <p>GitHub Pages로 무료로 호스팅됩니다.</p>
+                </div>
+                
+                <div id="library-content" style="display: none;">
+                    <div id="library-default">
+                        <h2>오픈소스 라이브러리</h2>
+                        <p>좌측 메뉴에서 pandas 또는 matplotlib을 선택하여 사용방법을 확인하세요.</p>
+                    </div>
+                    
+                    <div id="pandas-content" style="display: none;">
+                        <h2>pandas 사용방법</h2>
+                        
+                        <div class="library-section">
+                            <h3>1. 데이터 읽기/쓰기</h3>
+                            <div class="code-block">
+                                <pre><code>import pandas as pd
+
+# CSV 파일 읽기
+df = pd.read_csv('data.csv')
+
+# Excel 파일 읽기
+df = pd.read_excel('data.xlsx')
+
+# CSV 파일 저장
+df.to_csv('output.csv', index=False)
+
+# Excel 파일 저장
+df.to_excel('output.xlsx', index=False)</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>2. 데이터 선택/필터링</h3>
+                            <div class="code-block">
+                                <pre><code># 열 선택
+df['column_name']
+df[['col1', 'col2']]
+
+# 행 선택
+df.loc[0]  # 인덱스로 선택
+df.iloc[0]  # 위치로 선택
+
+# 조건 필터링
+df[df['column'] > 100]
+df[(df['col1'] > 10) & (df['col2'] < 50)]</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>3. 데이터 변환</h3>
+                            <div class="code-block">
+                                <pre><code># 열 추가
+df['new_column'] = df['col1'] + df['col2']
+
+# 열 삭제
+df = df.drop('column_name', axis=1)
+
+# 데이터 타입 변경
+df['column'] = df['column'].astype(int)
+
+# 결측치 처리
+df = df.dropna()  # 결측치 제거
+df = df.fillna(0)  # 결측치를 0으로 채우기</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>4. 그룹화 및 집계</h3>
+                            <div class="code-block">
+                                <pre><code># 그룹화
+grouped = df.groupby('column_name')
+
+# 집계 함수
+df.groupby('column').sum()
+df.groupby('column').mean()
+df.groupby('column').count()
+
+# 여러 집계 함수 동시 적용
+df.groupby('column').agg({
+    'col1': 'sum',
+    'col2': 'mean',
+    'col3': 'count'
+})</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="matplotlib-content" style="display: none;">
+                        <h2>matplotlib 사용방법</h2>
+                        
+                        <div class="library-section">
+                            <h3>1. 기본 그래프</h3>
+                            <div class="code-block">
+                                <pre><code>import matplotlib.pyplot as plt
+
+# 선 그래프
+plt.plot(x, y)
+plt.xlabel('X축 레이블')
+plt.ylabel('Y축 레이블')
+plt.title('그래프 제목')
+plt.show()
+
+# 막대 그래프
+plt.bar(x, y)
+plt.show()
+
+# 산점도
+plt.scatter(x, y)
+plt.show()</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>2. 여러 그래프 그리기</h3>
+                            <div class="code-block">
+                                <pre><code># 여러 그래프를 하나의 그림에
+plt.plot(x1, y1, label='데이터1')
+plt.plot(x2, y2, label='데이터2')
+plt.legend()
+plt.show()
+
+# 서브플롯
+fig, axes = plt.subplots(2, 2)
+axes[0, 0].plot(x, y)
+axes[0, 1].bar(x, y)
+axes[1, 0].scatter(x, y)
+axes[1, 1].hist(data)
+plt.show()</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>3. 스타일링</h3>
+                            <div class="code-block">
+                                <pre><code># 색상 및 선 스타일
+plt.plot(x, y, color='red', linestyle='--', linewidth=2, marker='o')
+
+# 그리드 추가
+plt.grid(True)
+
+# 범례
+plt.legend(loc='upper right')
+
+# 그림 크기 설정
+plt.figure(figsize=(10, 6))
+
+# 축 범위 설정
+plt.xlim(0, 100)
+plt.ylim(0, 50)</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>4. 고급 기능</h3>
+                            <div class="code-block">
+                                <pre><code># 히스토그램
+plt.hist(data, bins=30)
+
+# 박스 플롯
+plt.boxplot(data)
+
+# 히트맵
+import numpy as np
+data = np.random.rand(10, 10)
+plt.imshow(data, cmap='hot')
+plt.colorbar()
+
+# 3D 그래프
+from mpl_toolkits.mplot3d import Axes3D
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(x, y, z)</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="ml-content" style="display: none;">
+                    <div id="ml-default">
+                        <h2>머신러닝</h2>
+                        <p>좌측 메뉴에서 머신러닝의 주요 분류를 선택하여 개념을 확인하세요.</p>
+                    </div>
+                    
+                    <div id="supervised-content" style="display: none;">
+                        <h2>지도학습 (Supervised Learning)</h2>
+                        
+                        <div class="library-section">
+                            <h3>개념</h3>
+                            <p>지도학습은 입력 데이터와 정답 레이블이 함께 제공되는 학습 방법입니다. 모델은 입력과 출력 간의 관계를 학습하여 새로운 데이터에 대한 예측을 수행합니다.</p>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>주요 카테고리</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>분류 (Classification)</strong>: 이산적인 클래스 레이블을 예측하는 문제</li>
+                                <li><strong>회귀 (Regression)</strong>: 연속적인 수치 값을 예측하는 문제</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>대표 알고리즘</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li>선형 회귀 (Linear Regression)</li>
+                                <li>로지스틱 회귀 (Logistic Regression)</li>
+                                <li>의사결정 트리 (Decision Tree)</li>
+                                <li>랜덤 포레스트 (Random Forest)</li>
+                                <li>서포트 벡터 머신 (SVM)</li>
+                                <li>신경망 (Neural Networks)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div id="unsupervised-content" style="display: none;">
+                        <h2>비지도학습 (Unsupervised Learning)</h2>
+                        
+                        <div class="library-section">
+                            <h3>개념</h3>
+                            <p>비지도학습은 정답 레이블 없이 입력 데이터만으로 패턴을 찾아내는 학습 방법입니다. 데이터의 숨겨진 구조나 분포를 발견하는 데 사용됩니다.</p>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>주요 카테고리</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>클러스터링 (Clustering)</strong>: 유사한 데이터를 그룹으로 묶는 작업</li>
+                                <li><strong>차원 축소 (Dimensionality Reduction)</strong>: 고차원 데이터를 저차원으로 변환</li>
+                                <li><strong>연관 규칙 학습 (Association Rule Learning)</strong>: 데이터 간의 연관성을 찾는 작업</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>대표 알고리즘</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li>K-평균 클러스터링 (K-Means)</li>
+                                <li>계층적 클러스터링 (Hierarchical Clustering)</li>
+                                <li>주성분 분석 (PCA)</li>
+                                <li>t-SNE</li>
+                                <li>자기 조직화 지도 (SOM)</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div id="reinforcement-content" style="display: none;">
+                        <h2>강화학습 (Reinforcement Learning)</h2>
+                        
+                        <div class="library-section">
+                            <h3>개념</h3>
+                            <p>강화학습은 에이전트가 환경과 상호작용하며 보상 신호를 통해 학습하는 방법입니다. 시행착오를 통해 최적의 행동 정책을 학습합니다.</p>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>주요 구성 요소</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>에이전트 (Agent)</strong>: 학습하고 행동하는 주체</li>
+                                <li><strong>환경 (Environment)</strong>: 에이전트가 상호작용하는 외부 세계</li>
+                                <li><strong>상태 (State)</strong>: 환경의 현재 상황</li>
+                                <li><strong>행동 (Action)</strong>: 에이전트가 취할 수 있는 동작</li>
+                                <li><strong>보상 (Reward)</strong>: 행동에 대한 피드백</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>대표 알고리즘</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li>Q-Learning</li>
+                                <li>Deep Q-Network (DQN)</li>
+                                <li>정책 경사 (Policy Gradient)</li>
+                                <li>Actor-Critic</li>
+                                <li>Proximal Policy Optimization (PPO)</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </section>
