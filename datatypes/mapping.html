@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>매핑 자료형 - Python 데이터 분석 가이드</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../common.js"></script>
+    <script src="../script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>"컴퓨팅 사고력은 모든 사람을 위한 기본 기술이다" - 앤드류 응</h1>
+        </header>
+        
+        <div class="layout">
+                        <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="../jupyter/" class="menu-item ">Jupyter 설정</a>
+                    <div class="menu-item has-submenu">
+                        <span>오픈소스 라이브러리</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="library-submenu" style="display: none;">
+                        <a href="../library/" class="submenu-item ">개요</a>
+                        <a href="../library/pandas.html" class="submenu-item ">pandas</a>
+                        <a href="../library/matplotlib.html" class="submenu-item ">matplotlib</a>
+                        <a href="../library/requests.html" class="submenu-item ">requests</a>
+                        <a href="../library/beautifulsoup4.html" class="submenu-item ">beautifulsoup4</a>
+                    </div>
+                    <div class="menu-item has-submenu">
+                        <span>머신러닝</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="ml-submenu" style="display: none;">
+                        <a href="../ml/" class="submenu-item ">개요</a>
+                        <a href="../ml/supervised.html" class="submenu-item ">지도학습</a>
+                        <a href="../ml/unsupervised.html" class="submenu-item ">비지도학습</a>
+                        <a href="../ml/reinforcement.html" class="submenu-item ">강화학습</a>
+                    </div>
+                    <a href="../data-sites/" class="menu-item ">데이터 수집 사이트</a>
+                    <div class="menu-item has-submenu">
+                        <span>자료형</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="datatypes-submenu" style="display: none;">
+                        <a href="../datatypes/" class="submenu-item ">개요</a>
+                        <a href="../datatypes/basic.html" class="submenu-item ">기본 자료형</a>
+                        <a href="../datatypes/sequence.html" class="submenu-item ">시퀀스 자료형</a>
+                        <a href="../datatypes/mapping.html" class="submenu-item active">매핑 자료형</a>
+                        <a href="../datatypes/set.html" class="submenu-item ">집합 자료형</a>
+                        <a href="../datatypes/array.html" class="submenu-item ">배열 자료형</a>
+                        <a href="../datatypes/series.html" class="submenu-item ">시리즈 자료형</a>
+                    </div>
+                    <a href="../" class="menu-item">홈</a>
+                </nav>
+            </aside>
+            
+            <main>
+                <section class="content">
+
+                        <h2>매핑 자료형</h2>
+                        
+                        <div class="library-section">
+                            <h3>세부분류</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>딕셔너리 (Dictionary)</strong> - dict
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>키-값 쌍(key-value pair) 구조</li>
+                                        <li>가변(mutable) 자료형</li>
+                                        <li>키는 불변 자료형만 사용 가능</li>
+                                        <li>순서 보장 (Python 3.7+)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>요약사항</h3>
+                            <p style="line-height: 1.8; color: #666;">
+                                딕셔너리는 키(key)와 값(value)의 쌍으로 데이터를 저장하는 자료구조입니다. 해시 테이블을 기반으로 하여 
+                                평균 O(1) 시간 복잡도로 조회가 가능합니다. 키는 불변 자료형(문자열, 숫자, 튜플 등)만 사용할 수 있으며, 
+                                값은 모든 자료형을 사용할 수 있습니다. Python 3.7부터는 삽입 순서가 보장되어 순서가 있는 매핑 자료형이 되었습니다.
+                            </p>
+                        
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

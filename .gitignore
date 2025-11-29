@@ -12,3 +12,5 @@ Thumbs.db
 # Logs
 *.log
 
+# Git setup guide (개인 설정 정보 포함)
+GIT_SETUP.md

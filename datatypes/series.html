@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시리즈 자료형 - Python 데이터 분석 가이드</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../common.js"></script>
+    <script src="../script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>"컴퓨팅 사고력은 모든 사람을 위한 기본 기술이다" - 앤드류 응</h1>
+        </header>
+        
+        <div class="layout">
+                        <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="../jupyter/" class="menu-item ">Jupyter 설정</a>
+                    <div class="menu-item has-submenu">
+                        <span>오픈소스 라이브러리</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="library-submenu" style="display: none;">
+                        <a href="../library/" class="submenu-item ">개요</a>
+                        <a href="../library/pandas.html" class="submenu-item ">pandas</a>
+                        <a href="../library/matplotlib.html" class="submenu-item ">matplotlib</a>
+                        <a href="../library/requests.html" class="submenu-item ">requests</a>
+                        <a href="../library/beautifulsoup4.html" class="submenu-item ">beautifulsoup4</a>
+                    </div>
+                    <div class="menu-item has-submenu">
+                        <span>머신러닝</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="ml-submenu" style="display: none;">
+                        <a href="../ml/" class="submenu-item ">개요</a>
+                        <a href="../ml/supervised.html" class="submenu-item ">지도학습</a>
+                        <a href="../ml/unsupervised.html" class="submenu-item ">비지도학습</a>
+                        <a href="../ml/reinforcement.html" class="submenu-item ">강화학습</a>
+                    </div>
+                    <a href="../data-sites/" class="menu-item ">데이터 수집 사이트</a>
+                    <div class="menu-item has-submenu">
+                        <span>자료형</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="datatypes-submenu" style="display: none;">
+                        <a href="../datatypes/" class="submenu-item ">개요</a>
+                        <a href="../datatypes/basic.html" class="submenu-item ">기본 자료형</a>
+                        <a href="../datatypes/sequence.html" class="submenu-item ">시퀀스 자료형</a>
+                        <a href="../datatypes/mapping.html" class="submenu-item ">매핑 자료형</a>
+                        <a href="../datatypes/set.html" class="submenu-item ">집합 자료형</a>
+                        <a href="../datatypes/array.html" class="submenu-item ">배열 자료형</a>
+                        <a href="../datatypes/series.html" class="submenu-item active">시리즈 자료형</a>
+                    </div>
+                    <a href="../" class="menu-item">홈</a>
+                </nav>
+            </aside>
+            
+            <main>
+                <section class="content">
+
+                        <h2>시리즈 자료형</h2>
+                        
+                        <div class="library-section">
+                            <h3>세부분류</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>Pandas 시리즈 (Series)</strong> - pandas.Series
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>1차원 레이블이 있는 배열</li>
+                                        <li>인덱스와 값의 쌍</li>
+                                        <li>다양한 데이터 타입 지원</li>
+                                        <li>NaN 값 처리 가능</li>
+                                    </ul>
+                                </li>
+                                <li><strong>시리즈 특징</strong>
+                                    <ul style="margin-top: 8px; margin-left: 20px;">
+                                        <li>인덱스 기반 접근</li>
+                                        <li>벡터화 연산 지원</li>
+                                        <li>결측치 처리 메서드</li>
+                                        <li>데이터프레임의 열(column)로 사용</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>요약사항</h3>
+                            <p style="line-height: 1.8; color: #666;">
+                                Pandas Series는 1차원 레이블이 있는 배열로, 딕셔너리와 리스트의 특징을 결합한 자료구조입니다. 
+                                각 값에 인덱스가 연결되어 있어 이름으로 데이터에 접근할 수 있습니다. NumPy 배열을 기반으로 하되, 
+                                레이블 인덱싱과 결측치 처리 기능이 추가되었습니다. 데이터프레임의 기본 구성 요소이며, 
+                                시계열 데이터, 실험 결과 등 순서가 있는 데이터를 다루는 데 적합합니다.
+                            </p>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>주요 메서드</h3>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">1. head() / tail()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 처음/마지막 n개 데이터 확인<br>
+                                    <strong>입력:</strong> n (기본값 5)<br>
+                                    <strong>출력:</strong> Series (처음/마지막 n개)<br>
+                                    <strong>예시:</strong> <code>series.head(10)</code>, <code>series.tail()</code><br>
+                                    <strong>실무 활용:</strong> 대용량 데이터의 구조 파악, 데이터 샘플링 확인
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">2. describe()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 통계 요약 정보 제공 (개수, 평균, 표준편차, 최소/최대, 사분위수)<br>
+                                    <strong>입력:</strong> 없음 또는 percentiles<br>
+                                    <strong>출력:</strong> Series (통계 요약)<br>
+                                    <strong>예시:</strong> <code>series.describe()</code><br>
+                                    <strong>실무 활용:</strong> 데이터 탐색 분석(EDA), 이상치 감지, 분포 파악
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">3. value_counts()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 값의 빈도수 계산 (내림차순 정렬)<br>
+                                    <strong>입력:</strong> normalize=False, sort=True, ascending=False<br>
+                                    <strong>출력:</strong> Series (값: 빈도수)<br>
+                                    <strong>예시:</strong> <code>series.value_counts()</code>, <code>series.value_counts(normalize=True)</code><br>
+                                    <strong>실무 활용:</strong> 범주형 데이터 분석, 빈도 분석, 데이터 분포 확인
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">4. isnull() / notnull()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 결측치(NaN) 여부 확인<br>
+                                    <strong>입력:</strong> 없음<br>
+                                    <strong>출력:</strong> Series (Boolean)<br>
+                                    <strong>예시:</strong> <code>series.isnull()</code>, <code>series.notnull()</code><br>
+                                    <strong>실무 활용:</strong> 결측치 탐지, 데이터 품질 검사, 필터링 조건으로 사용
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">5. fillna()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 결측치를 지정한 값으로 채우기<br>
+                                    <strong>입력:</strong> value (스칼라, dict, Series, method='ffill'/'bfill')<br>
+                                    <strong>출력:</strong> Series (결측치 채워진 결과)<br>
+                                    <strong>예시:</strong> <code>series.fillna(0)</code>, <code>series.fillna(method='ffill')</code><br>
+                                    <strong>실무 활용:</strong> 결측치 처리, 시계열 데이터 전처리, 평균/중앙값으로 대체
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">6. dropna()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 결측치가 있는 행 제거<br>
+                                    <strong>입력:</strong> axis=0, how='any'/'all'<br>
+                                    <strong>출력:</strong> Series (결측치 제거된 결과)<br>
+                                    <strong>예시:</strong> <code>series.dropna()</code><br>
+                                    <strong>실무 활용:</strong> 결측치가 많은 데이터 정리, 분석 전 데이터 클렌징
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">7. sort_values()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 값 기준 정렬<br>
+                                    <strong>입력:</strong> ascending=True/False, na_position='last'/'first'<br>
+                                    <strong>출력:</strong> Series (정렬된 결과)<br>
+                                    <strong>예시:</strong> <code>series.sort_values()</code>, <code>series.sort_values(ascending=False)</code><br>
+                                    <strong>실무 활용:</strong> 데이터 정렬, 상위/하위 데이터 추출, 순위 분석
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">8. unique() / nunique()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 고유값 반환 / 고유값 개수<br>
+                                    <strong>입력:</strong> 없음<br>
+                                    <strong>출력:</strong> ndarray (고유값) / int (개수)<br>
+                                    <strong>예시:</strong> <code>series.unique()</code>, <code>series.nunique()</code><br>
+                                    <strong>실무 활용:</strong> 범주 확인, 중복 제거, 데이터 카디널리티 파악
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">9. apply()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 각 요소에 함수 적용<br>
+                                    <strong>입력:</strong> func (함수), convert_dtype=True<br>
+                                    <strong>출력:</strong> Series (변환된 결과)<br>
+                                    <strong>예시:</strong> <code>series.apply(lambda x: x*2)</code>, <code>series.apply(str.upper)</code><br>
+                                    <strong>실무 활용:</strong> 데이터 변환, 형식 변환, 복잡한 계산 로직 적용
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">10. map()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 값 매핑 (딕셔너리 또는 함수 사용)<br>
+                                    <strong>입력:</strong> arg (dict, Series, 함수)<br>
+                                    <strong>출력:</strong> Series (매핑된 결과)<br>
+                                    <strong>예시:</strong> <code>series.map({'A': 1, 'B': 2})</code>, <code>series.map(str.lower)</code><br>
+                                    <strong>실무 활용:</strong> 레이블 인코딩, 카테고리 변환, 값 치환
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">11. groupby()</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 그룹별 집계 연산<br>
+                                    <strong>입력:</strong> by (그룹핑 기준), axis=0<br>
+                                    <strong>출력:</strong> GroupBy 객체<br>
+                                    <strong>예시:</strong> <code>df.groupby('category')['price'].sum()</code><br>
+                                    <strong>실무 활용:</strong> 카테고리별 통계, 그룹별 분석, 집계 연산
+                                </p>
+                            </div>
+                            
+                            <div style="margin-bottom: 25px;">
+                                <h4 style="color: #667eea; margin-bottom: 10px;">12. str 접근자</h4>
+                                <p style="line-height: 1.8; color: #666; margin-bottom: 8px;">
+                                    <strong>기능:</strong> 문자열 메서드에 접근 (문자열 Series 전용)<br>
+                                    <strong>입력:</strong> 문자열 메서드 (upper, lower, split, contains 등)<br>
+                                    <strong>출력:</strong> Series (문자열 처리 결과)<br>
+                                    <strong>예시:</strong> <code>series.str.upper()</code>, <code>series.str.contains('pattern')</code><br>
+                                    <strong>실무 활용:</strong> 텍스트 전처리, 패턴 매칭, 문자열 변환
+                                </p>
+                            
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

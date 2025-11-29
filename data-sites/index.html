@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터 수집 사이트 - Python 데이터 분석 가이드</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../common.js"></script>
+    <script src="../script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>"컴퓨팅 사고력은 모든 사람을 위한 기본 기술이다" - 앤드류 응</h1>
+        </header>
+        
+        <div class="layout">
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="../jupyter/" class="menu-item">Jupyter 설정</a>
+                    <div class="menu-item has-submenu">
+                        <span>오픈소스 라이브러리</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="library-submenu" style="display: none;">
+                        <a href="../library/" class="submenu-item">개요</a>
+                        <a href="../library/pandas.html" class="submenu-item">pandas</a>
+                        <a href="../library/matplotlib.html" class="submenu-item">matplotlib</a>
+                        <a href="../library/requests.html" class="submenu-item">requests</a>
+                        <a href="../library/beautifulsoup4.html" class="submenu-item">beautifulsoup4</a>
+                    </div>
+                    <div class="menu-item has-submenu">
+                        <span>머신러닝</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="ml-submenu" style="display: none;">
+                        <a href="../ml/" class="submenu-item">개요</a>
+                        <a href="../ml/supervised.html" class="submenu-item">지도학습</a>
+                        <a href="../ml/unsupervised.html" class="submenu-item">비지도학습</a>
+                        <a href="../ml/reinforcement.html" class="submenu-item">강화학습</a>
+                    </div>
+                    <a href="../data-sites/" class="menu-item active">데이터 수집 사이트</a>
+                    <div class="menu-item has-submenu">
+                        <span>자료형</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="datatypes-submenu" style="display: none;">
+                        <a href="../datatypes/" class="submenu-item">개요</a>
+                        <a href="../datatypes/basic.html" class="submenu-item">기본 자료형</a>
+                        <a href="../datatypes/sequence.html" class="submenu-item">시퀀스 자료형</a>
+                        <a href="../datatypes/mapping.html" class="submenu-item">매핑 자료형</a>
+                        <a href="../datatypes/set.html" class="submenu-item">집합 자료형</a>
+                        <a href="../datatypes/array.html" class="submenu-item">배열 자료형</a>
+                        <a href="../datatypes/series.html" class="submenu-item">시리즈 자료형</a>
+                    </div>
+                    <a href="../" class="menu-item">홈</a>
+                </nav>
+            </aside>
+            
+            <main>
+                <section class="content">
+                    <h2>데이터 수집 유용한 사이트</h2>
+                    <p>데이터 분석 및 머신러닝 프로젝트에 활용할 수 있는 공개 데이터셋과 API를 제공하는 사이트들입니다.</p>
+                    
+                    <div class="library-section">
+                        <h3>공개 데이터셋</h3>
+                        <ul style="line-height: 2.5; color: #666;">
+                            <li><strong><a href="https://www.kaggle.com/datasets" target="_blank" style="color: #667eea; text-decoration: none;">Kaggle Datasets</a></strong> - 다양한 머신러닝 데이터셋 제공</li>
+                            <li><strong><a href="https://data.gov/" target="_blank" style="color: #667eea; text-decoration: none;">Data.gov</a></strong> - 미국 정부 공개 데이터</li>
+                            <li><strong><a href="https://www.data.go.kr/" target="_blank" style="color: #667eea; text-decoration: none;">공공데이터포털</a></strong> - 대한민국 공공 데이터</li>
+                            <li><strong><a href="https://kosis.kr/index/index.do" target="_blank" style="color: #667eea; text-decoration: none;">국가통계포털</a></strong> - 국가 통계 데이터 제공</li>
+                            <li><strong><a href="https://www.data.go.kr/data/15119809/fileData.do" target="_blank" style="color: #667eea; text-decoration: none;">한국산업안전보건공단_산업안전보건 실태조사(제조업) 원시자료</a></strong> - 산업안전보건 실태조사 데이터</li>
+                            <li><strong><a href="https://kess.kedi.re.kr/index" target="_blank" style="color: #667eea; text-decoration: none;">교육통계서비스</a></strong> - 교육 통계 데이터 제공</li>
+                            <li><strong><a href="https://archive.ics.uci.edu/" target="_blank" style="color: #667eea; text-decoration: none;">UCI Machine Learning Repository</a></strong> - 머신러닝 연구용 데이터셋</li>
+                            <li><strong><a href="https://www.google.com/datasetsearch" target="_blank" style="color: #667eea; text-decoration: none;">Google Dataset Search</a></strong> - 데이터셋 검색 엔진</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="library-section">
+                        <h3>API 제공 사이트</h3>
+                        <ul style="line-height: 2.5; color: #666;">
+                            <li><strong><a href="https://jsonplaceholder.typicode.com/" target="_blank" style="color: #667eea; text-decoration: none;">JSONPlaceholder</a></strong> - 테스트용 REST API</li>
+                            <li><strong><a href="https://www.alphavantage.co/" target="_blank" style="color: #667eea; text-decoration: none;">Alpha Vantage</a></strong> - 주식 시장 데이터 API</li>
+                            <li><strong><a href="https://openweathermap.org/api" target="_blank" style="color: #667eea; text-decoration: none;">OpenWeatherMap</a></strong> - 날씨 데이터 API</li>
+                            <li><strong><a href="https://newsapi.org/" target="_blank" style="color: #667eea; text-decoration: none;">News API</a></strong> - 뉴스 헤드라인 API</li>
+                            <li><strong><a href="https://www.themoviedb.org/documentation/api" target="_blank" style="color: #667eea; text-decoration: none;">The Movie Database (TMDB)</a></strong> - 영화 데이터 API</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="library-section">
+                        <h3>웹 스크래핑 연습 사이트</h3>
+                        <ul style="line-height: 2.5; color: #666;">
+                            <li><strong><a href="http://quotes.toscrape.com/" target="_blank" style="color: #667eea; text-decoration: none;">Quotes to Scrape</a></strong> - 웹 스크래핑 연습용 사이트</li>
+                            <li><strong><a href="https://books.toscrape.com/" target="_blank" style="color: #667eea; text-decoration: none;">Books to Scrape</a></strong> - 책 정보 스크래핑 연습</li>
+                            <li><strong><a href="http://quotes.toscrape.com/js/" target="_blank" style="color: #667eea; text-decoration: none;">Quotes (JavaScript)</a></strong> - JavaScript 렌더링 연습</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="library-section">
+                        <h3>특수 목적 데이터</h3>
+                        <ul style="line-height: 2.5; color: #666;">
+                            <li><strong><a href="https://www.imdb.com/interfaces/" target="_blank" style="color: #667eea; text-decoration: none;">IMDb Datasets</a></strong> - 영화 및 TV 프로그램 데이터</li>
+                            <li><strong><a href="https://github.com/datasets" target="_blank" style="color: #667eea; text-decoration: none;">GitHub Datasets</a></strong> - GitHub의 공개 데이터셋 모음</li>
+                            <li><strong><a href="https://www.reddit.com/r/datasets" target="_blank" style="color: #667eea; text-decoration: none;">r/datasets</a></strong> - Reddit 데이터셋 커뮤니티</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
+

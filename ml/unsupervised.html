@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>비지도학습 - Python 데이터 분석 가이드</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../common.js"></script>
+    <script src="../script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>"컴퓨팅 사고력은 모든 사람을 위한 기본 기술이다" - 앤드류 응</h1>
+        </header>
+        
+        <div class="layout">
+                        <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="../jupyter/" class="menu-item ">Jupyter 설정</a>
+                    <div class="menu-item has-submenu">
+                        <span>오픈소스 라이브러리</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="library-submenu" style="display: none;">
+                        <a href="../library/" class="submenu-item ">개요</a>
+                        <a href="../library/pandas.html" class="submenu-item ">pandas</a>
+                        <a href="../library/matplotlib.html" class="submenu-item ">matplotlib</a>
+                        <a href="../library/requests.html" class="submenu-item ">requests</a>
+                        <a href="../library/beautifulsoup4.html" class="submenu-item ">beautifulsoup4</a>
+                    </div>
+                    <div class="menu-item has-submenu">
+                        <span>머신러닝</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="ml-submenu" style="display: none;">
+                        <a href="../ml/" class="submenu-item ">개요</a>
+                        <a href="../ml/supervised.html" class="submenu-item ">지도학습</a>
+                        <a href="../ml/unsupervised.html" class="submenu-item active">비지도학습</a>
+                        <a href="../ml/reinforcement.html" class="submenu-item ">강화학습</a>
+                    </div>
+                    <a href="../data-sites/" class="menu-item ">데이터 수집 사이트</a>
+                    <div class="menu-item has-submenu">
+                        <span>자료형</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="datatypes-submenu" style="display: none;">
+                        <a href="../datatypes/" class="submenu-item ">개요</a>
+                        <a href="../datatypes/basic.html" class="submenu-item ">기본 자료형</a>
+                        <a href="../datatypes/sequence.html" class="submenu-item ">시퀀스 자료형</a>
+                        <a href="../datatypes/mapping.html" class="submenu-item ">매핑 자료형</a>
+                        <a href="../datatypes/set.html" class="submenu-item ">집합 자료형</a>
+                        <a href="../datatypes/array.html" class="submenu-item ">배열 자료형</a>
+                        <a href="../datatypes/series.html" class="submenu-item ">시리즈 자료형</a>
+                    </div>
+                    <a href="../" class="menu-item">홈</a>
+                </nav>
+            </aside>
+            
+            <main>
+                <section class="content">
+
+                        <h2>비지도학습 (Unsupervised Learning)</h2>
+                        
+                        <div class="library-section">
+                            <h3>개념</h3>
+                            <p>비지도학습은 정답 레이블 없이 입력 데이터만으로 패턴을 찾아내는 학습 방법입니다. 데이터의 숨겨진 구조나 분포를 발견하는 데 사용됩니다.</p>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>주요 카테고리</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li><strong>클러스터링 (Clustering)</strong>: 유사한 데이터를 그룹으로 묶는 작업</li>
+                                <li><strong>차원 축소 (Dimensionality Reduction)</strong>: 고차원 데이터를 저차원으로 변환</li>
+                                <li><strong>연관 규칙 학습 (Association Rule Learning)</strong>: 데이터 간의 연관성을 찾는 작업</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>대표 알고리즘</h3>
+                            <ul style="line-height: 2; color: #666;">
+                                <li>K-평균 클러스터링 (K-Means)</li>
+                                <li>계층적 클러스터링 (Hierarchical Clustering)</li>
+                                <li>주성분 분석 (PCA)</li>
+                                <li>t-SNE</li>
+                                <li>자기 조직화 지도 (SOM)</li>
+                            </ul>
+                        
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>

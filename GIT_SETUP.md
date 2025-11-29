@@ -11,8 +11,8 @@ git --version
 git init
 
 # 사용자 정보 설정 (처음 한 번만)
-git config --global user.name "Your Name"
-git config --global user.email "your.email@example.com"
+git config --global user.name "jjang"
+git config --global user.email "jjang70.dev@gmail.com"
 
 # 모든 파일 추가
 git add .
@@ -24,15 +24,15 @@ git commit -m "Initial commit: 기본 정적 페이지 생성"
 ## 3. GitHub 저장소 생성
 1. GitHub.com에 로그인
 2. 우측 상단의 "+" 버튼 클릭 → "New repository" 선택
-3. 저장소 이름 입력 (예: `github_static_pages`)
+3. 저장소 이름 입력 (예: `fstrepo`)
 4. Public 또는 Private 선택
 5. "Create repository" 클릭
-6. 생성된 저장소의 URL을 복사 (예: `https://github.com/username/github_static_pages.git`)
+6. 생성된 저장소의 URL을 복사 (예: `https://github.com/jjang70/fstrepo.git`)
 
 ## 4. GitHub에 연결 및 Push
 ```bash
 # 원격 저장소 추가 (아래 URL을 실제 저장소 URL로 변경)
-git remote add origin https://github.com/[사용자명]/[저장소명].git
+git remote add origin https://github.com/jjang70/fstrepo.git
 
 # 메인 브랜치로 이름 변경
 git branch -M main
@@ -48,7 +48,7 @@ git push -u origin main
    - Branch: `main` 선택
    - Folder: `/ (root)` 선택
 4. **Save** 버튼 클릭
-5. 몇 분 후 `https://[사용자명].github.io/[저장소명]` 주소로 접속 가능
+5. 몇 분 후 `https://jjang70.github.io/fstrepo` 주소로 접속 가능
 
 ## 문제 해결
 - Git 명령어가 인식되지 않으면: PowerShell 재시작 또는 Git Bash 사용
