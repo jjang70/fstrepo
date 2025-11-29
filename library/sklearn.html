@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sklearn 사용방법 - Python 데이터 분석 가이드</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>"컴퓨팅 사고력은 모든 사람을 위한 기본 기술이다" - 앤드류 응</h1>
+        </header>
+        
+        <div class="layout">
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="../jupyter/" class="menu-item ">Jupyter 설정</a>
+                    <div class="menu-item has-submenu">
+                        <span>오픈소스 라이브러리</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="library-submenu" style="display: none;">
+                        <a href="../library/" class="submenu-item ">개요</a>
+                        <a href="../library/pandas.html" class="submenu-item ">pandas</a>
+                        <a href="../library/matplotlib.html" class="submenu-item ">matplotlib</a>
+                        <a href="../library/seaborn.html" class="submenu-item ">seaborn</a>
+                        <a href="../library/sklearn.html" class="submenu-item active">sklearn</a>
+                        <a href="../library/requests.html" class="submenu-item ">requests</a>
+                        <a href="../library/beautifulsoup4.html" class="submenu-item ">beautifulsoup4</a>
+                    </div>
+                    <div class="menu-item has-submenu">
+                        <span>머신러닝</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="ml-submenu" style="display: none;">
+                        <a href="../ml/" class="submenu-item ">개요</a>
+                        <a href="../ml/supervised.html" class="submenu-item ">지도학습</a>
+                        <a href="../ml/unsupervised.html" class="submenu-item ">비지도학습</a>
+                        <a href="../ml/reinforcement.html" class="submenu-item ">강화학습</a>
+                    </div>
+                    <a href="../data-sites/" class="menu-item ">데이터 수집 사이트</a>
+                    <div class="menu-item has-submenu">
+                        <span>자료형</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="datatypes-submenu" style="display: none;">
+                        <a href="../datatypes/" class="submenu-item ">개요</a>
+                        <a href="../datatypes/basic.html" class="submenu-item ">기본 자료형</a>
+                        <a href="../datatypes/sequence.html" class="submenu-item ">시퀀스 자료형</a>
+                        <a href="../datatypes/mapping.html" class="submenu-item ">매핑 자료형</a>
+                        <a href="../datatypes/set.html" class="submenu-item ">집합 자료형</a>
+                        <a href="../datatypes/array.html" class="submenu-item ">배열 자료형</a>
+                        <a href="../datatypes/series.html" class="submenu-item ">시리즈 자료형</a>
+                    </div>
+                    <a href="../" class="menu-item">홈</a>
+                </nav>
+            </aside>
+            
+            <main>
+                <section class="content">
+
+                        <h2>sklearn (scikit-learn) 사용방법</h2>
+                        
+                        <div class="library-section" style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea;">
+                            <h3 style="margin-top: 0; color: #667eea;">📚 공식 문서 및 학습 자료</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">공식 문서</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://scikit-learn.org/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🌐 공식 홈페이지</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://scikit-learn.org/stable/user_guide.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📖 사용자 가이드</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://scikit-learn.org/stable/tutorial/index.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📘 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://scikit-learn.org/stable/modules/classes.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📗 API 레퍼런스</a></li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">학습 및 참고 사이트</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://realpython.com/scikit-learn-python/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🎓 Real Python - sklearn 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://www.geeksforgeeks.org/scikit-learn-tutorial/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📚 GeeksforGeeks - sklearn 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://stackoverflow.com/questions/tagged/scikit-learn" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">💬 Stack Overflow - sklearn Q&A</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://scikit-learn.org/stable/getting_started.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🚀 시작하기 가이드</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>1. 기본 사용법</h3>
+                            <p><strong>기능:</strong> scikit-learn은 Python의 머신러닝 라이브러리로, 분류, 회귀, 클러스터링, 차원 축소 등 다양한 머신러닝 알고리즘을 제공합니다.</p>
+                            <div class="code-block">
+                                <pre><code>from sklearn import datasets
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# 데이터 로드
+iris = datasets.load_iris()
+X = iris.data
+y = iris.target
+
+# 데이터 분할
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 데이터 전처리
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+# 모델 학습
+model = LogisticRegression()
+model.fit(X_train_scaled, y_train)
+
+# 예측 및 평가
+y_pred = model.predict(X_test_scaled)
+accuracy = accuracy_score(y_test, y_pred)
+print(f'정확도: {accuracy}')</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 머신러닝 모델 개발, 데이터 전처리, 모델 평가</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>2. 데이터 전처리 (Preprocessing)</h3>
+                            
+                            <h4>2.1 스케일링</h4>
+                            <div class="code-block">
+                                <pre><code>from sklearn.preprocessing import StandardScaler, MinMaxScaler, RobustScaler
+
+# 표준화 (평균 0, 표준편차 1)
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+# 정규화 (0~1 범위)
+minmax = MinMaxScaler()
+X_normalized = minmax.fit_transform(X)
+
+# 로버스트 스케일링 (이상치에 강함)
+robust = RobustScaler()
+X_robust = robust.fit_transform(X)</code></pre>
+                            </div>
+
+                            <h4>2.2 인코딩</h4>
+                            <div class="code-block">
+                                <pre><code>from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+
+# 레이블 인코딩
+le = LabelEncoder()
+y_encoded = le.fit_transform(y)
+
+# 원-핫 인코딩
+ohe = OneHotEncoder(sparse=False)
+X_encoded = ohe.fit_transform(X_categorical)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 데이터 정규화, 범주형 변수 처리, 이상치 처리</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>3. 지도학습 모델</h3>
+                            
+                            <h4>3.1 분류 (Classification)</h4>
+                            <div class="code-block">
+                                <pre><code>from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.svm import SVC
+from sklearn.neighbors import KNeighborsClassifier
+
+# 로지스틱 회귀
+lr = LogisticRegression()
+lr.fit(X_train, y_train)
+
+# 의사결정 트리
+dt = DecisionTreeClassifier(max_depth=5)
+dt.fit(X_train, y_train)
+
+# 랜덤 포레스트
+rf = RandomForestClassifier(n_estimators=100)
+rf.fit(X_train, y_train)
+
+# 서포트 벡터 머신
+svm = SVC(kernel='rbf')
+svm.fit(X_train, y_train)
+
+# K-최근접 이웃
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)</code></pre>
+                            </div>
+
+                            <h4>3.2 회귀 (Regression)</h4>
+                            <div class="code-block">
+                                <pre><code>from sklearn.linear_model import LinearRegression, Ridge, Lasso
+from sklearn.ensemble import RandomForestRegressor
+
+# 선형 회귀
+lr = LinearRegression()
+lr.fit(X_train, y_train)
+
+# 릿지 회귀 (L2 정규화)
+ridge = Ridge(alpha=1.0)
+ridge.fit(X_train, y_train)
+
+# 라쏘 회귀 (L1 정규화)
+lasso = Lasso(alpha=1.0)
+lasso.fit(X_train, y_train)
+
+# 랜덤 포레스트 회귀
+rf = RandomForestRegressor(n_estimators=100)
+rf.fit(X_train, y_train)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 분류 문제 해결, 회귀 예측, 패턴 인식</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>4. 비지도학습 모델</h3>
+                            
+                            <h4>4.1 클러스터링</h4>
+                            <div class="code-block">
+                                <pre><code>from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
+
+# K-평균 클러스터링
+kmeans = KMeans(n_clusters=3, random_state=42)
+clusters = kmeans.fit_predict(X)
+
+# DBSCAN (밀도 기반)
+dbscan = DBSCAN(eps=0.5, min_samples=5)
+clusters = dbscan.fit_predict(X)
+
+# 계층적 클러스터링
+agg = AgglomerativeClustering(n_clusters=3)
+clusters = agg.fit_predict(X)</code></pre>
+                            </div>
+
+                            <h4>4.2 차원 축소</h4>
+                            <div class="code-block">
+                                <pre><code>from sklearn.decomposition import PCA
+from sklearn.manifold import TSNE
+
+# 주성분 분석
+pca = PCA(n_components=2)
+X_pca = pca.fit_transform(X)
+
+# t-SNE
+tsne = TSNE(n_components=2, random_state=42)
+X_tsne = tsne.fit_transform(X)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 데이터 그룹화, 차원 축소, 패턴 발견</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>5. 모델 평가</h3>
+                            <div class="code-block">
+                                <pre><code>from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import cross_val_score
+
+# 분류 평가
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average='weighted')
+recall = recall_score(y_test, y_pred, average='weighted')
+f1 = f1_score(y_test, y_pred, average='weighted')
+
+# 혼동 행렬
+cm = confusion_matrix(y_test, y_pred)
+print(classification_report(y_test, y_pred))
+
+# 회귀 평가
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+# 교차 검증
+scores = cross_val_score(model, X, y, cv=5)
+print(f'평균 정확도: {scores.mean():.2f} (+/- {scores.std() * 2:.2f})')</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 모델 성능 평가, 과적합 방지, 모델 선택</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>6. 파이프라인 (Pipeline)</h3>
+                            <div class="code-block">
+                                <pre><code>from sklearn.pipeline import Pipeline
+
+# 전처리와 모델을 하나의 파이프라인으로
+pipeline = Pipeline([
+    ('scaler', StandardScaler()),
+    ('classifier', LogisticRegression())
+])
+
+# 학습 및 예측
+pipeline.fit(X_train, y_train)
+y_pred = pipeline.predict(X_test)
+
+# 그리드 서치와 함께 사용
+from sklearn.model_selection import GridSearchCV
+
+param_grid = {
+    'classifier__C': [0.1, 1, 10],
+    'classifier__penalty': ['l1', 'l2']
+}
+
+grid_search = GridSearchCV(pipeline, param_grid, cv=5)
+grid_search.fit(X_train, y_train)
+best_model = grid_search.best_estimator_</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 워크플로우 자동화, 하이퍼파라미터 튜닝, 코드 간소화</p>
+                        </div>
+                            
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
+

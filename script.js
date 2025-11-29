@@ -1,5 +1,22 @@
 // 서브메뉴 토글 기능
 document.addEventListener('DOMContentLoaded', function() {
+    // 현재 페이지에 해당하는 서브메뉴 자동으로 펼치기
+    const activeSubmenuItem = document.querySelector('.submenu-item.active');
+    if (activeSubmenuItem) {
+        const submenu = activeSubmenuItem.closest('.submenu');
+        if (submenu) {
+            submenu.style.display = 'block';
+            const parentMenu = submenu.previousElementSibling;
+            if (parentMenu && parentMenu.classList.contains('has-submenu')) {
+                const toggleIcon = parentMenu.querySelector('.submenu-toggle');
+                if (toggleIcon) {
+                    toggleIcon.textContent = '▲';
+                }
+            }
+        }
+    }
+
+    // 서브메뉴 토글 기능
     const submenuToggles = document.querySelectorAll('.has-submenu');
     submenuToggles.forEach(toggle => {
         toggle.addEventListener('click', function(e) {

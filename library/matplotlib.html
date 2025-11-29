@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>matplotlib 사용방법 - Python 데이터 분석 가이드</title>
     <link rel="stylesheet" href="../styles.css">
-    <script src="../common.js"></script>
     <script src="../script.js"></script>
 </head>
 <body>
@@ -26,6 +25,8 @@
                         <a href="../library/" class="submenu-item ">개요</a>
                         <a href="../library/pandas.html" class="submenu-item ">pandas</a>
                         <a href="../library/matplotlib.html" class="submenu-item active">matplotlib</a>
+                        <a href="../library/seaborn.html" class="submenu-item ">seaborn</a>
+                        <a href="../library/sklearn.html" class="submenu-item ">sklearn</a>
                         <a href="../library/requests.html" class="submenu-item ">requests</a>
                         <a href="../library/beautifulsoup4.html" class="submenu-item ">beautifulsoup4</a>
                     </div>
@@ -62,25 +63,152 @@
 
                         <h2>matplotlib 사용방법</h2>
                         
+                        <div class="library-section" style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea;">
+                            <h3 style="margin-top: 0; color: #667eea;">📚 공식 문서 및 학습 자료</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">공식 문서</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://matplotlib.org/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🌐 공식 홈페이지</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://matplotlib.org/stable/contents.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📖 공식 문서</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://matplotlib.org/stable/tutorials/index.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📘 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://matplotlib.org/stable/gallery/index.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🖼️ 예제 갤러리</a></li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">학습 및 참고 사이트</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://realpython.com/python-matplotlib-guide/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🎓 Real Python - matplotlib 가이드</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://www.geeksforgeeks.org/matplotlib-tutorial/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📚 GeeksforGeeks - matplotlib 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://stackoverflow.com/questions/tagged/matplotlib" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">💬 Stack Overflow - matplotlib Q&A</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://matplotlib.org/stable/users/explain/quick_start.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🚀 빠른 시작 가이드</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="library-section">
                             <h3>1. 기본 그래프</h3>
+                            <p><strong>기능:</strong> 데이터를 시각화하기 위한 다양한 그래프를 생성합니다.</p>
                             <div class="code-block">
                                 <pre><code>import matplotlib.pyplot as plt
+import numpy as np
 
 # 선 그래프
+x = np.linspace(0, 10, 100)
+y = np.sin(x)
 plt.plot(x, y)
 plt.xlabel('X축 레이블')
 plt.ylabel('Y축 레이블')
 plt.title('그래프 제목')
+plt.grid(True)
 plt.show()
 
 # 막대 그래프
-plt.bar(x, y)
+categories = ['A', 'B', 'C', 'D']
+values = [10, 20, 15, 25]
+plt.bar(categories, values)
+plt.xlabel('카테고리')
+plt.ylabel('값')
+plt.title('막대 그래프')
 plt.show()
 
 # 산점도
-plt.scatter(x, y)
+x = np.random.randn(100)
+y = np.random.randn(100)
+plt.scatter(x, y, alpha=0.5)
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('산점도')
 plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 데이터 트렌드 분석, 카테고리별 비교, 상관관계 시각화</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>2. 여러 그래프 그리기 (subplot)</h3>
+                            <p><strong>기능:</strong> 하나의 figure에 여러 개의 그래프를 배치합니다.</p>
+                            <div class="code-block">
+                                <pre><code># subplot 사용
+fig, axes = plt.subplots(2, 2, figsize=(10, 8))
+
+# 첫 번째 그래프
+axes[0, 0].plot(x, y)
+axes[0, 0].set_title('그래프 1')
+
+# 두 번째 그래프
+axes[0, 1].bar(categories, values)
+axes[0, 1].set_title('그래프 2')
+
+# 세 번째 그래프
+axes[1, 0].scatter(x, y)
+axes[1, 0].set_title('그래프 3')
+
+# 네 번째 그래프
+axes[1, 1].hist(np.random.randn(1000), bins=30)
+axes[1, 1].set_title('그래프 4')
+
+plt.tight_layout()
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 여러 지표를 한 화면에 비교, 대시보드 구성, 데이터 종합 분석</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>3. 그래프 스타일링</h3>
+                            <p><strong>기능:</strong> 그래프의 색상, 선 스타일, 범례 등을 커스터마이징합니다.</p>
+                            <div class="code-block">
+                                <pre><code># 선 스타일과 색상
+plt.plot(x, y, color='red', linestyle='--', linewidth=2, label='데이터1')
+plt.plot(x, y*2, color='blue', linestyle='-', linewidth=1, label='데이터2')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+# 막대 그래프 스타일
+plt.bar(categories, values, color=['red', 'blue', 'green', 'orange'], alpha=0.7)
+plt.show()
+
+# 산점도 스타일
+plt.scatter(x, y, c=y, cmap='viridis', s=50, alpha=0.6)
+plt.colorbar()
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 보고서용 그래프 제작, 브랜드 컬러 적용, 가독성 향상</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>4. 히스토그램 및 분포 그래프</h3>
+                            <div class="code-block">
+                                <pre><code># 히스토그램
+data = np.random.normal(100, 15, 1000)
+plt.hist(data, bins=30, edgecolor='black', alpha=0.7)
+plt.xlabel('값')
+plt.ylabel('빈도')
+plt.title('히스토그램')
+plt.show()
+
+# 박스 플롯
+data = [np.random.normal(0, std, 100) for std in range(1, 4)]
+plt.boxplot(data, labels=['그룹1', '그룹2', '그룹3'])
+plt.ylabel('값')
+plt.title('박스 플롯')
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 데이터 분포 분석, 이상치 탐지, 그룹별 비교</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>5. 파일 저장</h3>
+                            <div class="code-block">
+                                <pre><code># 그래프를 파일로 저장
+plt.plot(x, y)
+plt.savefig('graph.png', dpi=300, bbox_inches='tight')
+plt.savefig('graph.pdf', bbox_inches='tight')
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 보고서 첨부, 프레젠테이션 자료, 문서화</p>
+                        </div>
                             
                 </section>
             </main>

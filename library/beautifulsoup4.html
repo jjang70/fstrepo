@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>beautifulsoup4 사용방법 - Python 데이터 분석 가이드</title>
     <link rel="stylesheet" href="../styles.css">
-    <script src="../common.js"></script>
     <script src="../script.js"></script>
 </head>
 <body>
@@ -26,6 +25,8 @@
                         <a href="../library/" class="submenu-item ">개요</a>
                         <a href="../library/pandas.html" class="submenu-item ">pandas</a>
                         <a href="../library/matplotlib.html" class="submenu-item ">matplotlib</a>
+                        <a href="../library/seaborn.html" class="submenu-item ">seaborn</a>
+                        <a href="../library/sklearn.html" class="submenu-item ">sklearn</a>
                         <a href="../library/requests.html" class="submenu-item ">requests</a>
                         <a href="../library/beautifulsoup4.html" class="submenu-item active">beautifulsoup4</a>
                     </div>
@@ -62,24 +63,188 @@
 
                         <h2>beautifulsoup4 사용방법</h2>
                         
+                        <div class="library-section" style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea;">
+                            <h3 style="margin-top: 0; color: #667eea;">📚 공식 문서 및 학습 자료</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">공식 문서</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🌐 공식 문서</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://www.crummy.com/software/BeautifulSoup/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📖 공식 홈페이지</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/#quick-start" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🚀 빠른 시작</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://github.com/waylan/beautifulsoup" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">💻 GitHub 저장소</a></li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">학습 및 참고 사이트</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://realpython.com/beautiful-soup-web-scraper-python/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🎓 Real Python - BeautifulSoup 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://www.geeksforgeeks.org/implementing-web-scraping-python-beautiful-soup/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📚 GeeksforGeeks - 웹 스크래핑 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://stackoverflow.com/questions/tagged/beautifulsoup" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">💬 Stack Overflow - BeautifulSoup Q&A</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://www.crummy.com/software/BeautifulSoup/bs4/doc/#searching-the-tree" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🔍 트리 검색 가이드</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="library-section">
-                            <h3>1. 기본 사용법</h3>
+                            <h3>1. 기본 HTML 파싱</h3>
+                            <p><strong>기능:</strong> HTML 문서를 파싱하여 원하는 정보를 추출합니다.</p>
                             <div class="code-block">
                                 <pre><code>from bs4 import BeautifulSoup
 import requests
 
-# HTML 파싱
+# HTML 가져오기 및 파싱
 html = requests.get('https://example.com').text
-soup = BeautifulSoup(html, 'html.parser')
+soup = BeautifulSoup(html, 'html.parser')  # 또는 'lxml', 'html5lib'
 
-# 태그 찾기
+# 파일에서 파싱
+with open('page.html', 'r', encoding='utf-8') as f:
+    soup = BeautifulSoup(f, 'html.parser')</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 웹 스크래핑, 데이터 수집, HTML 분석</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>2. 태그 찾기 (find, find_all)</h3>
+                            
+                            <h4>2.1 find() - 첫 번째 태그 찾기</h4>
+                            <div class="code-block">
+                                <pre><code># 태그 이름으로 찾기
 title = soup.find('title')
 print(title.text)
 
-# 모든 링크 찾기
+# 클래스로 찾기
+div = soup.find('div', class_='content')
+
+# ID로 찾기
+element = soup.find(id='main-content')
+
+# 속성으로 찾기
+link = soup.find('a', href='https://example.com')
+
+# 여러 조건 조합
+element = soup.find('div', class_='item', id='item1')</code></pre>
+                            </div>
+
+                            <h4>2.2 find_all() - 모든 태그 찾기</h4>
+                            <div class="code-block">
+                                <pre><code># 모든 링크 찾기
 links = soup.find_all('a')
 for link in links:
-    print(link.get('href'))</code></pre>
+    print(link.get('href'))
+
+# 클래스가 'item'인 모든 div 찾기
+items = soup.find_all('div', class_='item')
+
+# limit 파라미터로 개수 제한
+first_5_links = soup.find_all('a', limit=5)
+
+# 리스트로 여러 태그 찾기
+elements = soup.find_all(['h1', 'h2', 'h3'])</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 링크 수집, 제품 정보 추출, 뉴스 기사 수집</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>3. CSS 선택자 (select)</h3>
+                            <p><strong>기능:</strong> CSS 선택자를 사용하여 요소를 찾습니다.</p>
+                            <div class="code-block">
+                                <pre><code># ID 선택자
+element = soup.select('#main-content')
+
+# 클래스 선택자
+items = soup.select('.item')
+
+# 태그 선택자
+titles = soup.select('h1')
+
+# 자손 선택자
+links = soup.select('div.content a')
+
+# 직접 자식 선택자
+items = soup.select('ul > li')
+
+# 속성 선택자
+images = soup.select('img[src]')
+links = soup.select('a[href^="https"]')  # href가 https로 시작</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 복잡한 구조의 HTML 파싱, CSS 선택자 활용</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>4. 태그 속성 및 텍스트 추출</h3>
+                            <div class="code-block">
+                                <pre><code># 텍스트 추출
+title = soup.find('title')
+print(title.text)  # 또는 title.get_text()
+print(title.string)  # 태그 내부의 단일 문자열만
+
+# 속성 가져오기
+link = soup.find('a')
+print(link.get('href'))  # href 속성
+print(link['href'])  # 직접 접근 (속성이 없으면 에러)
+
+# 모든 속성
+print(link.attrs)  # 딕셔너리 형태
+
+# 여러 텍스트 추출
+paragraphs = soup.find_all('p')
+texts = [p.get_text(strip=True) for p in paragraphs]  # strip으로 공백 제거</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 링크, 이미지 URL 추출, 본문 텍스트 수집</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>5. 부모, 자식, 형제 요소 탐색</h3>
+                            <div class="code-block">
+                                <pre><code>element = soup.find('div', class_='item')
+
+# 부모 요소
+parent = element.parent
+
+# 모든 부모 요소
+parents = list(element.parents)
+
+# 자식 요소
+children = element.children  # 직접 자식만
+all_children = element.descendants  # 모든 자손
+
+# 형제 요소
+next_sibling = element.next_sibling
+previous_sibling = element.previous_sibling
+
+# 다음/이전 형제 요소 (태그만)
+next_element = element.find_next_sibling('div')
+previous_element = element.find_previous_sibling('div')</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 복잡한 HTML 구조 탐색, 관련 정보 추출</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>6. 실전 예제</h3>
+                            <div class="code-block">
+                                <pre><code># 뉴스 기사 제목과 링크 추출
+articles = soup.find_all('article')
+for article in articles:
+    title = article.find('h2').get_text(strip=True)
+    link = article.find('a')['href']
+    print(f'{title}: {link}')
+
+# 테이블 데이터 추출
+table = soup.find('table')
+rows = table.find_all('tr')
+for row in rows:
+    cells = row.find_all('td')
+    data = [cell.get_text(strip=True) for cell in cells]
+    print(data)
+
+# 이미지 URL 수집
+images = soup.find_all('img')
+image_urls = [img.get('src') for img in images if img.get('src')]</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 뉴스 수집, 상품 정보 추출, 데이터 수집 자동화</p>
+                        </div>
                             
                 </section>
             </main>

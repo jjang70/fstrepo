@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>requests 사용방법 - Python 데이터 분석 가이드</title>
     <link rel="stylesheet" href="../styles.css">
-    <script src="../common.js"></script>
     <script src="../script.js"></script>
 </head>
 <body>
@@ -26,6 +25,8 @@
                         <a href="../library/" class="submenu-item ">개요</a>
                         <a href="../library/pandas.html" class="submenu-item ">pandas</a>
                         <a href="../library/matplotlib.html" class="submenu-item ">matplotlib</a>
+                        <a href="../library/seaborn.html" class="submenu-item ">seaborn</a>
+                        <a href="../library/sklearn.html" class="submenu-item ">sklearn</a>
                         <a href="../library/requests.html" class="submenu-item active">requests</a>
                         <a href="../library/beautifulsoup4.html" class="submenu-item ">beautifulsoup4</a>
                     </div>
@@ -62,19 +63,165 @@
 
                         <h2>requests 사용방법</h2>
                         
+                        <div class="library-section" style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea;">
+                            <h3 style="margin-top: 0; color: #667eea;">📚 공식 문서 및 학습 자료</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">공식 문서</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://requests.readthedocs.io/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🌐 공식 문서 (Read the Docs)</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://requests.readthedocs.io/en/latest/user/quickstart/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📘 빠른 시작 가이드</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://requests.readthedocs.io/en/latest/api/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📗 API 레퍼런스</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://github.com/psf/requests" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">💻 GitHub 저장소</a></li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">학습 및 참고 사이트</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://realpython.com/python-requests/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🎓 Real Python - requests 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://www.geeksforgeeks.org/python-requests-tutorial/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📚 GeeksforGeeks - requests 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://stackoverflow.com/questions/tagged/python-requests" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">💬 Stack Overflow - requests Q&A</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://requests.readthedocs.io/en/latest/user/advanced/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🔧 고급 사용법</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="library-section">
-                            <h3>1. 기본 사용법</h3>
+                            <h3>1. 기본 HTTP 요청</h3>
+                            <p><strong>기능:</strong> HTTP 프로토콜을 사용하여 웹 서버와 통신합니다.</p>
+                            
+                            <h4>1.1 GET 요청</h4>
                             <div class="code-block">
                                 <pre><code>import requests
 
-# GET 요청
+# 기본 GET 요청
 response = requests.get('https://api.example.com/data')
-print(response.status_code)
-print(response.json())
+print(response.status_code)  # 상태 코드 (200, 404 등)
+print(response.text)  # 텍스트 응답
+print(response.json())  # JSON 응답 (JSON인 경우)
 
-# POST 요청
-data = {'key': 'value'}
-response = requests.post('https://api.example.com/data', json=data)</code></pre>
+# 쿼리 파라미터 추가
+params = {'key': 'value', 'page': 1}
+response = requests.get('https://api.example.com/data', params=params)
+print(response.url)  # 실제 요청 URL 확인</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> API 데이터 수집, 웹 페이지 내용 가져오기, REST API 호출</p>
+
+                            <h4>1.2 POST 요청</h4>
+                            <div class="code-block">
+                                <pre><code># JSON 데이터 전송
+data = {'key': 'value', 'name': 'test'}
+response = requests.post('https://api.example.com/data', json=data)
+
+# Form 데이터 전송
+form_data = {'username': 'user', 'password': 'pass'}
+response = requests.post('https://api.example.com/login', data=form_data)
+
+# 파일 업로드
+files = {'file': open('document.pdf', 'rb')}
+response = requests.post('https://api.example.com/upload', files=files)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 로그인 처리, 데이터 전송, 파일 업로드</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>2. 헤더 및 인증</h3>
+                            
+                            <h4>2.1 커스텀 헤더</h4>
+                            <div class="code-block">
+                                <pre><code># 헤더 설정
+headers = {
+    'User-Agent': 'Mozilla/5.0',
+    'Authorization': 'Bearer token123',
+    'Content-Type': 'application/json'
+}
+response = requests.get('https://api.example.com/data', headers=headers)</code></pre>
+                            </div>
+
+                            <h4>2.2 인증</h4>
+                            <div class="code-block">
+                                <pre><code># Basic 인증
+from requests.auth import HTTPBasicAuth
+response = requests.get('https://api.example.com/data', 
+                       auth=HTTPBasicAuth('username', 'password'))
+
+# Bearer 토큰
+headers = {'Authorization': 'Bearer your_token_here'}
+response = requests.get('https://api.example.com/data', headers=headers)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 인증이 필요한 API 접근, 보안 요구사항 충족</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>3. 쿠키 및 세션</h3>
+                            
+                            <h4>3.1 쿠키 처리</h4>
+                            <div class="code-block">
+                                <pre><code># 쿠키 전송
+cookies = {'session_id': 'abc123'}
+response = requests.get('https://example.com', cookies=cookies)
+
+# 쿠키 받기
+response = requests.get('https://example.com')
+print(response.cookies)  # 응답 쿠키 확인</code></pre>
+                            </div>
+
+                            <h4>3.2 세션 사용</h4>
+                            <div class="code-block">
+                                <pre><code># 세션 객체 생성 (쿠키 자동 관리)
+session = requests.Session()
+
+# 로그인
+session.post('https://example.com/login', data={'user': 'name', 'pass': 'word'})
+
+# 로그인 후 요청 (쿠키 자동 포함)
+response = session.get('https://example.com/dashboard')
+print(response.text)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 로그인 유지, 상태 관리, 연속적인 요청 처리</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>4. 에러 처리 및 타임아웃</h3>
+                            <div class="code-block">
+                                <pre><code># 상태 코드 확인
+response = requests.get('https://api.example.com/data')
+if response.status_code == 200:
+    print('성공')
+elif response.status_code == 404:
+    print('찾을 수 없음')
+else:
+    print(f'에러: {response.status_code}')
+
+# 예외 처리
+try:
+    response = requests.get('https://api.example.com/data', timeout=5)
+    response.raise_for_status()  # 4xx, 5xx 에러 시 예외 발생
+except requests.exceptions.Timeout:
+    print('요청 시간 초과')
+except requests.exceptions.RequestException as e:
+    print(f'요청 에러: {e}')</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 안정적인 API 호출, 에러 복구, 사용자 경험 개선</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>5. 응답 처리</h3>
+                            <div class="code-block">
+                                <pre><code>response = requests.get('https://api.example.com/data')
+
+# 응답 내용
+print(response.text)  # 텍스트
+print(response.json())  # JSON 파싱
+print(response.content)  # 바이너리
+print(response.headers)  # 응답 헤더
+print(response.cookies)  # 쿠키
+print(response.status_code)  # 상태 코드
+print(response.url)  # 최종 URL (리다이렉트 후)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 다양한 형식의 응답 처리, 메타데이터 활용</p>
+                        </div>
                             
                 </section>
             </main>

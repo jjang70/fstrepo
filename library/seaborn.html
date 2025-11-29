@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>seaborn 사용방법 - Python 데이터 분석 가이드</title>
+    <link rel="stylesheet" href="../styles.css">
+    <script src="../script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>"컴퓨팅 사고력은 모든 사람을 위한 기본 기술이다" - 앤드류 응</h1>
+        </header>
+        
+        <div class="layout">
+            <aside class="sidebar">
+                <nav class="sidebar-nav">
+                    <a href="../jupyter/" class="menu-item ">Jupyter 설정</a>
+                    <div class="menu-item has-submenu">
+                        <span>오픈소스 라이브러리</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="library-submenu" style="display: none;">
+                        <a href="../library/" class="submenu-item ">개요</a>
+                        <a href="../library/pandas.html" class="submenu-item ">pandas</a>
+                        <a href="../library/matplotlib.html" class="submenu-item ">matplotlib</a>
+                        <a href="../library/seaborn.html" class="submenu-item active">seaborn</a>
+                        <a href="../library/sklearn.html" class="submenu-item ">sklearn</a>
+                        <a href="../library/requests.html" class="submenu-item ">requests</a>
+                        <a href="../library/beautifulsoup4.html" class="submenu-item ">beautifulsoup4</a>
+                    </div>
+                    <div class="menu-item has-submenu">
+                        <span>머신러닝</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="ml-submenu" style="display: none;">
+                        <a href="../ml/" class="submenu-item ">개요</a>
+                        <a href="../ml/supervised.html" class="submenu-item ">지도학습</a>
+                        <a href="../ml/unsupervised.html" class="submenu-item ">비지도학습</a>
+                        <a href="../ml/reinforcement.html" class="submenu-item ">강화학습</a>
+                    </div>
+                    <a href="../data-sites/" class="menu-item ">데이터 수집 사이트</a>
+                    <div class="menu-item has-submenu">
+                        <span>자료형</span>
+                        <span class="submenu-toggle">▼</span>
+                    </div>
+                    <div class="submenu" id="datatypes-submenu" style="display: none;">
+                        <a href="../datatypes/" class="submenu-item ">개요</a>
+                        <a href="../datatypes/basic.html" class="submenu-item ">기본 자료형</a>
+                        <a href="../datatypes/sequence.html" class="submenu-item ">시퀀스 자료형</a>
+                        <a href="../datatypes/mapping.html" class="submenu-item ">매핑 자료형</a>
+                        <a href="../datatypes/set.html" class="submenu-item ">집합 자료형</a>
+                        <a href="../datatypes/array.html" class="submenu-item ">배열 자료형</a>
+                        <a href="../datatypes/series.html" class="submenu-item ">시리즈 자료형</a>
+                    </div>
+                    <a href="../" class="menu-item">홈</a>
+                </nav>
+            </aside>
+            
+            <main>
+                <section class="content">
+
+                        <h2>seaborn 사용방법</h2>
+                        
+                        <div class="library-section" style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea;">
+                            <h3 style="margin-top: 0; color: #667eea;">📚 공식 문서 및 학습 자료</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">공식 문서</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://seaborn.pydata.org/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🌐 공식 홈페이지</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://seaborn.pydata.org/tutorial.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📖 공식 문서</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://seaborn.pydata.org/tutorial/introduction.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📘 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://seaborn.pydata.org/examples/index.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🖼️ 예제 갤러리</a></li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">학습 및 참고 사이트</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://realpython.com/seaborn-python-data-visualization/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🎓 Real Python - seaborn 가이드</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://www.geeksforgeeks.org/seaborn-tutorial/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📚 GeeksforGeeks - seaborn 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://stackoverflow.com/questions/tagged/seaborn" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">💬 Stack Overflow - seaborn Q&A</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://seaborn.pydata.org/getting_started.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🚀 빠른 시작 가이드</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="library-section">
+                            <h3>1. 기본 설정 및 스타일</h3>
+                            <p><strong>기능:</strong> seaborn은 matplotlib을 기반으로 한 통계 데이터 시각화 라이브러리로, 더 아름답고 정보가 풍부한 그래프를 쉽게 만들 수 있습니다.</p>
+                            <div class="code-block">
+                                <pre><code>import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+
+# 스타일 설정
+sns.set_style("whitegrid")  # whitegrid, darkgrid, white, dark, ticks
+sns.set_palette("husl")  # 색상 팔레트 설정
+
+# 기본 설정
+sns.set_context("paper")  # paper, notebook, talk, poster
+
+# pandas DataFrame과 함께 사용
+df = pd.DataFrame({
+    'x': [1, 2, 3, 4, 5],
+    'y': [2, 4, 6, 8, 10],
+    'category': ['A', 'B', 'A', 'B', 'A']
+})</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 보고서용 그래프 스타일 통일, 전문적인 시각화, 통계 분석 결과 표현</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>2. 관계형 그래프 (Relational plots)</h3>
+                            <p><strong>기능:</strong> 변수 간의 관계를 시각화합니다.</p>
+                            
+                            <h4>2.1 scatterplot() - 산점도</h4>
+                            <div class="code-block">
+                                <pre><code># 기본 산점도
+sns.scatterplot(data=df, x='x', y='y')
+
+# 카테고리별 색상 구분
+sns.scatterplot(data=df, x='x', y='y', hue='category')
+
+# 크기로 구분
+sns.scatterplot(data=df, x='x', y='y', size='y', sizes=(50, 200))
+
+# 스타일로 구분
+sns.scatterplot(data=df, x='x', y='y', style='category')
+
+plt.show()</code></pre>
+                            </div>
+
+                            <h4>2.2 lineplot() - 선 그래프</h4>
+                            <div class="code-block">
+                                <pre><code># 기본 선 그래프
+sns.lineplot(data=df, x='x', y='y')
+
+# 여러 선 표시
+sns.lineplot(data=df, x='x', y='y', hue='category')
+
+# 신뢰 구간 표시 (기본값)
+sns.lineplot(data=df, x='x', y='y', ci='sd')  # 표준편차
+
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 변수 간 상관관계 분석, 시계열 데이터 시각화, 카테고리별 비교</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>3. 분포 그래프 (Distribution plots)</h3>
+                            
+                            <h4>3.1 displot() - 분포 플롯</h4>
+                            <div class="code-block">
+                                <pre><code># 히스토그램
+sns.displot(data=df, x='y', kind='hist', bins=20)
+
+# KDE (커널 밀도 추정)
+sns.displot(data=df, x='y', kind='kde')
+
+# ECDF (경험적 누적 분포 함수)
+sns.displot(data=df, x='y', kind='ecdf')
+
+# 카테고리별 분포
+sns.displot(data=df, x='y', hue='category', kind='kde')
+
+plt.show()</code></pre>
+                            </div>
+
+                            <h4>3.2 histplot() - 히스토그램</h4>
+                            <div class="code-block">
+                                <pre><code># 기본 히스토그램
+sns.histplot(data=df, x='y')
+
+# 누적 히스토그램
+sns.histplot(data=df, x='y', cumulative=True)
+
+# 다변량 히스토그램
+sns.histplot(data=df, x='x', y='y')
+
+plt.show()</code></pre>
+                            </div>
+
+                            <h4>3.3 boxplot() - 박스 플롯</h4>
+                            <div class="code-block">
+                                <pre><code># 기본 박스 플롯
+sns.boxplot(data=df, x='category', y='y')
+
+# 수평 박스 플롯
+sns.boxplot(data=df, y='category', x='y', orient='h')
+
+plt.show()</code></pre>
+                            </div>
+
+                            <h4>3.4 violinplot() - 바이올린 플롯</h4>
+                            <div class="code-block">
+                                <pre><code># 바이올린 플롯 (박스 플롯 + KDE)
+sns.violinplot(data=df, x='category', y='y')
+
+# 내부 박스 플롯 표시
+sns.violinplot(data=df, x='category', y='y', inner='box')
+
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 데이터 분포 분석, 이상치 탐지, 그룹별 분포 비교</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>4. 카테고리별 그래프 (Categorical plots)</h3>
+                            
+                            <h4>4.1 barplot() - 막대 그래프</h4>
+                            <div class="code-block">
+                                <pre><code># 기본 막대 그래프 (평균값 표시)
+sns.barplot(data=df, x='category', y='y')
+
+# 신뢰 구간 표시
+sns.barplot(data=df, x='category', y='y', ci='sd')
+
+# 색상 구분
+sns.barplot(data=df, x='category', y='y', hue='category')
+
+plt.show()</code></pre>
+                            </div>
+
+                            <h4>4.2 countplot() - 카운트 플롯</h4>
+                            <div class="code-block">
+                                <pre><code># 카테고리별 개수
+sns.countplot(data=df, x='category')
+
+# 수평 막대
+sns.countplot(data=df, y='category')
+
+plt.show()</code></pre>
+                            </div>
+
+                            <h4>4.3 catplot() - 카테고리 플롯</h4>
+                            <div class="code-block">
+                                <pre><code># 다양한 카테고리 그래프
+sns.catplot(data=df, x='category', y='y', kind='box')
+sns.catplot(data=df, x='category', y='y', kind='violin')
+sns.catplot(data=df, x='category', y='y', kind='strip')  # 스트립 플롯
+sns.catplot(data=df, x='category', y='y', kind='swarm')  # 스웜 플롯
+
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 카테고리별 통계 비교, 빈도 분석, 그룹별 집계</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>5. 회귀 그래프 (Regression plots)</h3>
+                            
+                            <h4>5.1 regplot() - 회귀 플롯</h4>
+                            <div class="code-block">
+                                <pre><code># 기본 회귀 플롯
+sns.regplot(data=df, x='x', y='y')
+
+# 다항식 회귀
+sns.regplot(data=df, x='x', y='y', order=2)
+
+# 로버스트 회귀
+sns.regplot(data=df, x='x', y='y', robust=True)
+
+# 신뢰 구간 조정
+sns.regplot(data=df, x='x', y='y', ci=95)
+
+plt.show()</code></pre>
+                            </div>
+
+                            <h4>5.2 lmplot() - 선형 모델 플롯</h4>
+                            <div class="code-block">
+                                <pre><code># 기본 선형 모델
+sns.lmplot(data=df, x='x', y='y')
+
+# 카테고리별 회귀선
+sns.lmplot(data=df, x='x', y='y', hue='category')
+
+# 서브플롯으로 분리
+sns.lmplot(data=df, x='x', y='y', col='category')
+
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 변수 간 선형 관계 분석, 트렌드 파악, 예측 모델 시각화</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>6. 다변량 그래프</h3>
+                            
+                            <h4>6.1 pairplot() - 페어 플롯</h4>
+                            <div class="code-block">
+                                <pre><code># 모든 변수 쌍의 관계
+sns.pairplot(data=df)
+
+# 특정 변수만 선택
+sns.pairplot(data=df, vars=['x', 'y'])
+
+# 카테고리별 색상
+sns.pairplot(data=df, hue='category')
+
+# 대각선에 분포 그래프
+sns.pairplot(data=df, diag_kind='kde')
+
+plt.show()</code></pre>
+                            </div>
+
+                            <h4>6.2 heatmap() - 히트맵</h4>
+                            <div class="code-block">
+                                <pre><code># 상관관계 행렬 히트맵
+correlation = df[['x', 'y']].corr()
+sns.heatmap(correlation, annot=True, cmap='coolwarm', center=0)
+
+# 데이터프레임 히트맵
+sns.heatmap(data=df.pivot_table(values='y', index='category', columns='x'), 
+            annot=True, fmt='.2f', cmap='YlOrRd')
+
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 다변량 관계 분석, 상관관계 시각화, 데이터 패턴 발견</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>7. FacetGrid - 서브플롯 그리드</h3>
+                            <div class="code-block">
+                                <pre><code># FacetGrid 생성
+g = sns.FacetGrid(df, col='category', row='category')
+
+# 각 서브플롯에 그래프 그리기
+g.map(sns.scatterplot, 'x', 'y')
+g.map(sns.histplot, 'y')
+
+# 축 레이블 추가
+g.set_axis_labels('X축', 'Y축')
+
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 다차원 데이터 시각화, 그룹별 비교, 복잡한 데이터 분석</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>8. 색상 팔레트</h3>
+                            <div class="code-block">
+                                <pre><code># 팔레트 설정
+sns.set_palette("husl")  # 기본 팔레트
+sns.set_palette("Set2")  # 이름으로 설정
+sns.set_palette("coolwarm")  # 연속형 팔레트
+
+# 커스텀 팔레트
+custom_palette = ["#FF6B6B", "#4ECDC4", "#45B7D1"]
+sns.set_palette(custom_palette)
+
+# 팔레트 미리보기
+sns.palplot(sns.color_palette("husl", 10))
+
+plt.show()</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 브랜드 컬러 적용, 색맹 고려한 색상 선택, 시각적 일관성 유지</p>
+                        </div>
+                            
+                </section>
+            </main>
+        </div>
+    </div>
+</body>
+</html>
+

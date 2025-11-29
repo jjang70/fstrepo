@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>pandas 사용방법 - Python 데이터 분석 가이드</title>
     <link rel="stylesheet" href="../styles.css">
-    <script src="../common.js"></script>
     <script src="../script.js"></script>
 </head>
 <body>
@@ -26,6 +25,8 @@
                         <a href="../library/" class="submenu-item ">개요</a>
                         <a href="../library/pandas.html" class="submenu-item active">pandas</a>
                         <a href="../library/matplotlib.html" class="submenu-item ">matplotlib</a>
+                        <a href="../library/seaborn.html" class="submenu-item ">seaborn</a>
+                        <a href="../library/sklearn.html" class="submenu-item ">sklearn</a>
                         <a href="../library/requests.html" class="submenu-item ">requests</a>
                         <a href="../library/beautifulsoup4.html" class="submenu-item ">beautifulsoup4</a>
                     </div>
@@ -62,6 +63,30 @@
 
                         <h2>pandas 사용방법</h2>
                         
+                        <div class="library-section" style="background-color: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 30px; border-left: 4px solid #667eea;">
+                            <h3 style="margin-top: 0; color: #667eea;">📚 공식 문서 및 학습 자료</h3>
+                            <div style="display: flex; flex-wrap: wrap; gap: 15px;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">공식 문서</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://pandas.pydata.org/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🌐 공식 홈페이지</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://pandas.pydata.org/docs/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📖 공식 문서</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://pandas.pydata.org/docs/user_guide/index.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📘 사용자 가이드</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://pandas.pydata.org/docs/reference/index.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📗 API 레퍼런스</a></li>
+                                    </ul>
+                                </div>
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h4 style="font-size: 0.95rem; color: #666; margin-bottom: 8px;">학습 및 참고 사이트</h4>
+                                    <ul style="list-style: none; padding: 0; margin: 0;">
+                                        <li style="margin-bottom: 5px;"><a href="https://realpython.com/pandas-python-explore-dataset/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🎓 Real Python - pandas 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://www.geeksforgeeks.org/pandas-tutorial/" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">📚 GeeksforGeeks - pandas 튜토리얼</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://stackoverflow.com/questions/tagged/pandas" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">💬 Stack Overflow - pandas Q&A</a></li>
+                                        <li style="margin-bottom: 5px;"><a href="https://pandas.pydata.org/docs/getting_started/intro_tutorials/index.html" target="_blank" rel="noopener noreferrer" style="color: #667eea; text-decoration: none;">🚀 시작하기 튜토리얼</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="library-section">
                             <h3>1. 데이터 읽기/쓰기</h3>
                             <div class="code-block">
@@ -78,10 +103,526 @@ df.to_csv('output.csv', index=False)
 
 # Excel 파일 저장
 df.to_excel('output.xlsx', index=False)</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>2. 데이터 병합 (merge, concat, join)</h3>
+                            
+                            <h4>2.1 merge() - SQL 스타일 병합</h4>
+                            <p><strong>기능:</strong> 두 DataFrame을 공통 열(키)을 기준으로 병합합니다. SQL의 JOIN과 유사합니다.</p>
+                            <p><strong>주요 파라미터:</strong></p>
+                            <ul>
+                                <li><code>on</code>: 병합 기준이 되는 열 이름</li>
+                                <li><code>how</code>: 병합 방식 ('left', 'right', 'inner', 'outer')</li>
+                                <li><code>left_on, right_on</code>: 왼쪽/오른쪽 DataFrame의 키 열</li>
+                                <li><code>suffixes</code>: 중복 열 이름에 붙일 접미사</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># 기본 병합 (inner join)
+df1 = pd.DataFrame({'key': ['A', 'B', 'C'], 'value1': [1, 2, 3]})
+df2 = pd.DataFrame({'key': ['B', 'C', 'D'], 'value2': [4, 5, 6]})
+result = pd.merge(df1, df2, on='key')
+
+# Left join
+result = pd.merge(df1, df2, on='key', how='left')
+
+# Outer join
+result = pd.merge(df1, df2, on='key', how='outer')
+
+# 다른 열 이름을 키로 사용
+df3 = pd.DataFrame({'id': ['A', 'B'], 'value': [10, 20]})
+result = pd.merge(df1, df3, left_on='key', right_on='id')</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 여러 데이터 소스의 정보를 결합할 때, 고객 정보와 주문 정보를 연결할 때, 시계열 데이터를 병합할 때</p>
+
+                            <h4>2.2 concat() - 연결</h4>
+                            <p><strong>기능:</strong> 여러 DataFrame을 축(axis)을 따라 연결합니다. 단순히 데이터를 이어 붙이는 작업입니다.</p>
+                            <p><strong>주요 파라미터:</strong></p>
+                            <ul>
+                                <li><code>axis</code>: 연결 방향 (0: 세로로 연결, 1: 가로로 연결)</li>
+                                <li><code>ignore_index</code>: 인덱스를 무시하고 새로 생성</li>
+                                <li><code>keys</code>: 계층적 인덱스 생성</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># 세로로 연결 (기본값)
+df1 = pd.DataFrame({'A': [1, 2], 'B': [3, 4]})
+df2 = pd.DataFrame({'A': [5, 6], 'B': [7, 8]})
+result = pd.concat([df1, df2], ignore_index=True)
+
+# 가로로 연결
+result = pd.concat([df1, df2], axis=1)
+
+# 계층적 인덱스 생성
+result = pd.concat([df1, df2], keys=['first', 'second'])
+
+# 다른 열을 가진 DataFrame 연결
+df3 = pd.DataFrame({'A': [9, 10], 'C': [11, 12]})
+result = pd.concat([df1, df3], ignore_index=True)  # B, C 열 모두 포함</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 여러 기간의 데이터를 합칠 때, 여러 파일에서 읽은 데이터를 합칠 때, 월별/분기별 데이터 통합</p>
+
+                            <h4>2.3 join() - 인덱스 기준 병합</h4>
+                            <p><strong>기능:</strong> DataFrame의 인덱스를 기준으로 병합합니다. merge()와 유사하지만 인덱스를 키로 사용합니다.</p>
+                            <p><strong>주요 파라미터:</strong></p>
+                            <ul>
+                                <li><code>how</code>: 병합 방식 ('left', 'right', 'inner', 'outer')</li>
+                                <li><code>on</code>: 인덱스 대신 사용할 열 이름</li>
+                                <li><code>lsuffix, rsuffix</code>: 중복 열 이름에 붙일 접미사</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># 인덱스 기준 병합
+df1 = pd.DataFrame({'A': [1, 2, 3]}, index=['a', 'b', 'c'])
+df2 = pd.DataFrame({'B': [4, 5, 6]}, index=['b', 'c', 'd'])
+result = df1.join(df2, how='inner')
+
+# Left join
+result = df1.join(df2, how='left')
+
+# 열을 인덱스로 설정 후 join
+df3 = df1.set_index('key')
+df4 = df2.set_index('key')
+result = df3.join(df4)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 시계열 데이터 병합, 인덱스가 의미 있는 경우(날짜, ID 등), 여러 시계열 데이터를 시간 기준으로 결합</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>3. 데이터 변환 및 집계</h3>
+                            
+                            <h4>3.1 pivot_table() - 피벗 테이블</h4>
+                            <p><strong>기능:</strong> 데이터를 재구성하여 피벗 테이블을 생성합니다. Excel의 피벗 테이블과 유사합니다.</p>
+                            <p><strong>주요 파라미터:</strong></p>
+                            <ul>
+                                <li><code>values</code>: 집계할 값 열</li>
+                                <li><code>index</code>: 행 인덱스로 사용할 열</li>
+                                <li><code>columns</code>: 열로 사용할 열</li>
+                                <li><code>aggfunc</code>: 집계 함수 ('mean', 'sum', 'count' 등)</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># 기본 피벗 테이블
+df = pd.DataFrame({
+    '날짜': ['2024-01', '2024-01', '2024-02', '2024-02'],
+    '제품': ['A', 'B', 'A', 'B'],
+    '판매량': [100, 150, 120, 180]
+})
+result = pd.pivot_table(df, values='판매량', index='날짜', columns='제품', aggfunc='sum')
+
+# 여러 집계 함수 사용
+result = pd.pivot_table(df, values='판매량', index='날짜', columns='제품', 
+                        aggfunc=['sum', 'mean'])
+
+# margins 추가 (전체 합계)
+result = pd.pivot_table(df, values='판매량', index='날짜', columns='제품', 
+                        aggfunc='sum', margins=True)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 월별/제품별 매출 집계, 카테고리별 통계 분석, 교차표 생성</p>
+
+                            <h4>3.2 sort_values() - 정렬</h4>
+                            <p><strong>기능:</strong> 값 기준으로 DataFrame을 정렬합니다.</p>
+                            <p><strong>주요 파라미터:</strong></p>
+                            <ul>
+                                <li><code>by</code>: 정렬 기준 열 이름 (단일 또는 리스트)</li>
+                                <li><code>ascending</code>: 오름차순 여부 (True/False 또는 리스트)</li>
+                                <li><code>na_position</code>: 결측치 위치 ('first', 'last')</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># 단일 열 기준 정렬
+df = pd.DataFrame({'A': [3, 1, 2], 'B': [6, 4, 5]})
+result = df.sort_values('A')
+
+# 내림차순 정렬
+result = df.sort_values('A', ascending=False)
+
+# 여러 열 기준 정렬
+result = df.sort_values(['A', 'B'], ascending=[True, False])
+
+# 결측치를 맨 앞에
+result = df.sort_values('A', na_position='first')</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 매출 상위 데이터 추출, 날짜순 정렬, 다중 조건 정렬</p>
+
+                            <h4>3.3 drop_duplicates() - 중복 제거</h4>
+                            <p><strong>기능:</strong> 중복된 행을 제거합니다.</p>
+                            <p><strong>주요 파라미터:</strong></p>
+                            <ul>
+                                <li><code>subset</code>: 중복 확인할 열 (기본값: 모든 열)</li>
+                                <li><code>keep</code>: 유지할 중복 행 ('first', 'last', False)</li>
+                            </ul>
+                            <div class="code-block">
+                                <pre><code># 모든 열 기준 중복 제거
+df = pd.DataFrame({'A': [1, 1, 2], 'B': [3, 3, 4]})
+result = df.drop_duplicates()
+
+# 특정 열 기준 중복 제거
+result = df.drop_duplicates(subset='A')
+
+# 마지막 중복 행 유지
+result = df.drop_duplicates(keep='last')
+
+# 모든 중복 행 제거
+result = df.drop_duplicates(keep=False)</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 중복 데이터 정리, 고유값 추출, 데이터 클렌징</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>4. 문자열 처리 (str 접근자)</h3>
+                            <p><strong>기능:</strong> Series의 문자열 데이터에 대해 다양한 문자열 메서드를 적용할 수 있습니다.</p>
+                            <div class="code-block">
+                                <pre><code># 문자열 변환
+df = pd.DataFrame({'name': ['apple', 'banana', 'cherry']})
+df['name_upper'] = df['name'].str.upper()
+df['name_lower'] = df['name'].str.lower()
+df['name_title'] = df['name'].str.title()
+
+# 문자열 검색
+df['has_a'] = df['name'].str.contains('a')
+df['starts_with_a'] = df['name'].str.startswith('a')
+
+# 문자열 분할
+df['first_letter'] = df['name'].str[0]
+df['split_result'] = df['name'].str.split('a')
+
+# 문자열 길이
+df['name_length'] = df['name'].str.len()
+
+# 문자열 치환
+df['name_replaced'] = df['name'].str.replace('a', 'A')
+
+# 정규표현식 사용
+df['has_digits'] = df['name'].str.contains(r'\d')</code></pre>
+                            </div>
+                            <p><strong>실무 활용:</strong> 텍스트 데이터 전처리, 이메일/전화번호 형식 검증, 로그 데이터 파싱, 카테고리 추출</p>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>5. 데이터 선택 및 필터링</h3>
+                            <div class="code-block">
+                                <pre><code># 열 선택
+df['column_name']  # 단일 열
+df[['col1', 'col2']]  # 여러 열
+
+# 행 선택 (인덱스)
+df.loc[0]  # 인덱스 0번 행
+df.loc[0:5]  # 0~5번 행
+df.loc[df['column'] > 10]  # 조건부 선택
+
+# iloc (위치 기반)
+df.iloc[0]  # 첫 번째 행
+df.iloc[0:5, 0:3]  # 행 0~4, 열 0~2
+
+# 조건부 필터링
+df[df['A'] > 5]
+df[(df['A'] > 5) & (df['B'] < 10)]
+df[df['A'].isin([1, 2, 3])]</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>6. 그룹화 및 집계</h3>
+                            <div class="code-block">
+                                <pre><code># 기본 그룹화
+df.groupby('category')['sales'].sum()
+
+# 여러 집계 함수
+df.groupby('category')['sales'].agg(['sum', 'mean', 'count'])
+
+# 여러 열 기준 그룹화
+df.groupby(['category', 'region'])['sales'].sum()
+
+# 사용자 정의 함수
+df.groupby('category')['sales'].apply(lambda x: x.max() - x.min())</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="library-section">
+                            <h3>7. pandas를 활용한 차트 생성</h3>
+                            <p style="margin-bottom: 20px;">pandas는 matplotlib을 기반으로 간단한 차트를 생성할 수 있습니다. 각 차트의 특징을 확인하고 적절한 차트를 선택하세요.</p>
+                            
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">bar() - 막대 그래프</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #ff6b6b; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">카테고리형</span>
+                                            <span class="badge" style="background-color: #4ecdc4; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">단변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 카테고리별 값을 막대로 표현하는 그래프입니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 막대 그래프
+df['category'].value_counts().plot(kind='bar')
+
+# 가로 막대 그래프
+df['category'].value_counts().plot(kind='barh')
+
+# 여러 열 비교
+df[['A', 'B', 'C']].plot(kind='bar', stacked=False)
+
+# 누적 막대 그래프
+df[['A', 'B', 'C']].plot(kind='bar', stacked=True)</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">line() - 선 그래프</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #95e1d3; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">연속형</span>
+                                            <span class="badge" style="background-color: #4ecdc4; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">단변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 시간에 따른 변화나 추세를 보여주는 선 그래프입니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 선 그래프
+df['value'].plot(kind='line')
+
+# 여러 열 비교
+df[['A', 'B', 'C']].plot(kind='line')
+
+# 인덱스를 x축으로
+df.set_index('date')['value'].plot(kind='line')</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">hist() - 히스토그램</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #95e1d3; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">연속형</span>
+                                            <span class="badge" style="background-color: #4ecdc4; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">단변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 데이터의 분포를 확인하는 히스토그램입니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 히스토그램
+df['value'].plot(kind='hist', bins=30)
+
+# 밀도 히스토그램
+df['value'].plot(kind='hist', density=True, bins=30)
+
+# 여러 열 비교
+df[['A', 'B']].plot(kind='hist', alpha=0.7, bins=30)</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">box() - 박스 플롯</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #95e1d3; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">연속형</span>
+                                            <span class="badge" style="background-color: #4ecdc4; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">단변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 데이터의 분포와 이상치를 확인하는 박스 플롯입니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 박스 플롯
+df['value'].plot(kind='box')
+
+# 여러 열 비교
+df[['A', 'B', 'C']].plot(kind='box')
+
+# 카테고리별 박스 플롯
+df.boxplot(column='value', by='category')</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">scatter() - 산점도</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #95e1d3; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">연속형</span>
+                                            <span class="badge" style="background-color: #f38181; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">다변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 두 변수 간의 관계를 확인하는 산점도입니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 산점도
+df.plot(kind='scatter', x='x', y='y')
+
+# 크기로 구분
+df.plot(kind='scatter', x='x', y='y', s=df['size']*10)
+
+# 색상으로 구분
+df.plot(kind='scatter', x='x', y='y', c='category', colormap='viridis')</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">pie() - 파이 차트</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #ff6b6b; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">카테고리형</span>
+                                            <span class="badge" style="background-color: #4ecdc4; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">단변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 전체 대비 비율을 보여주는 파이 차트입니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 파이 차트
+df['category'].value_counts().plot(kind='pie', autopct='%1.1f%%')
+
+# 특정 열 기준
+df.groupby('category')['value'].sum().plot(kind='pie', autopct='%1.1f%%')</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">area() - 영역 그래프</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #95e1d3; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">연속형</span>
+                                            <span class="badge" style="background-color: #f38181; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">다변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 시간에 따른 누적 값을 보여주는 영역 그래프입니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 영역 그래프
+df[['A', 'B', 'C']].plot(kind='area')
+
+# 누적 영역 그래프
+df[['A', 'B', 'C']].plot(kind='area', stacked=True)
+
+# 비누적 영역 그래프
+df[['A', 'B', 'C']].plot(kind='area', stacked=False, alpha=0.7)</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">barh() - 가로 막대 그래프</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #ff6b6b; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">카테고리형</span>
+                                            <span class="badge" style="background-color: #4ecdc4; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">단변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 세로 막대 그래프를 가로로 표시한 그래프입니다. 긴 카테고리명이 있을 때 유용합니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 가로 막대 그래프
+df['category'].value_counts().plot(kind='barh')
+
+# 여러 열 비교
+df[['A', 'B', 'C']].plot(kind='barh')
+
+# 누적 가로 막대 그래프
+df[['A', 'B', 'C']].plot(kind='barh', stacked=True)</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">kde() / density() - 커널 밀도 추정</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #95e1d3; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">연속형</span>
+                                            <span class="badge" style="background-color: #4ecdc4; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">단변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 데이터의 확률 밀도 함수를 추정하여 부드러운 곡선으로 표현하는 그래프입니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 KDE 그래프
+df['value'].plot(kind='kde')
+
+# 또는 density 사용
+df['value'].plot(kind='density')
+
+# 여러 열 비교
+df[['A', 'B']].plot(kind='kde')
+
+# 히스토그램과 함께 표시
+df['value'].hist(density=True, alpha=0.5, bins=30)
+df['value'].plot(kind='kde', secondary_y=True)</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="chart-item" style="margin-bottom: 15px; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                                <div class="chart-header" style="padding: 15px; background-color: #f8f9fa; cursor: pointer; display: flex; justify-content: space-between; align-items: center;" onclick="toggleChart(this)">
+                                    <div>
+                                        <h4 style="margin: 0; color: #333;">hexbin() - 육각형 빈 플롯</h4>
+                                        <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap;">
+                                            <span class="badge" style="background-color: #95e1d3; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">연속형</span>
+                                            <span class="badge" style="background-color: #f38181; color: white; padding: 4px 10px; border-radius: 12px; font-size: 0.85rem;">다변량</span>
+                                        </div>
+                                    </div>
+                                    <span class="chart-toggle" style="font-size: 1.2rem; color: #667eea;">▼</span>
+                                </div>
+                                <div class="chart-content" style="display: none; padding: 20px; background-color: white;">
+                                    <p style="margin-bottom: 15px;"><strong>설명:</strong> 대용량 데이터의 2차원 분포를 육각형으로 나누어 표현하는 그래프입니다. 산점도의 대안으로 사용됩니다.</p>
+                                    <div class="code-block">
+                                        <pre><code># 기본 육각형 빈 플롯
+df.plot(kind='hexbin', x='x', y='y', gridsize=20)
+
+# 빈 크기 조정
+df.plot(kind='hexbin', x='x', y='y', gridsize=30)
+
+# 색상 맵 변경
+df.plot(kind='hexbin', x='x', y='y', cmap='YlOrRd')</code></pre>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                             
                 </section>
             </main>
         </div>
     </div>
+    <script>
+        function toggleChart(header) {
+            const content = header.nextElementSibling;
+            const toggle = header.querySelector('.chart-toggle');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                toggle.textContent = '▲';
+            } else {
+                content.style.display = 'none';
+                toggle.textContent = '▼';
+            }
+        }
+    </script>
 </body>
 </html>
